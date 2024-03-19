@@ -1,0 +1,33 @@
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  object-fit: cover;
+}
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+}
+ol,
+ul,
+dl {
+  margin: 0;
+}
+
+.zoomIn {
+  img {
+    transform: scale(1, 1);
+    transition: all 0.5s ease-out;
+  }
+
+  &:hover img {
+    transform: scale(1.2, 1.2);
+  }
+}
