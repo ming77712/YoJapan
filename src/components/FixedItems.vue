@@ -38,10 +38,10 @@ export default {
 </script>
 
 <template>
-  <div class="zIndex position-fixed end-2 bottom-2 text-center">
+  <div class="zIndex position-fixed end-2 bottom-4 text-center">
     <RouterLink
       to="/cart"
-      class="fixedItem shadow bg-white pt-1 mb-3"
+      class="fixedItem shadow bg-white pt-2 mb-3"
     >
       <i class="position-relative bi bi-cart-fill text-black fs-3">
         <span class="position-absolute top-0 start-100 translate-middle
@@ -51,7 +51,7 @@ export default {
     </RouterLink>
     <div
       v-if="isShow"
-      class="fixedItem shadow bg-white pt-1"
+      class="fixedItem shadow bg-white pt-2"
       @click="scrollToTop"
     >
       <i class="bi bi-chevron-compact-up fs-3"></i>

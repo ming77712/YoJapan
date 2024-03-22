@@ -3,7 +3,6 @@ import { mapState, mapActions } from 'pinia';
 import BannerSwiper from '../components/BannerSwiper.vue';
 import ProductsSwiper from '../components/ProductsSwiper.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-import FixedItems from '../components/FixedItems.vue';
 import articlesStore from '../stores/articlesStore';
 
 export default {
@@ -24,7 +23,6 @@ export default {
     BannerSwiper,
     ProductsSwiper,
     FooterComponent,
-    FixedItems,
   },
 };
 </script>
@@ -272,7 +270,6 @@ export default {
       </div>
     </section>
     <FooterComponent />
-    <FixedItems />
   </main>
 </template>
 

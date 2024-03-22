@@ -1,5 +1,5 @@
 <template>
-    <h2 class="fw-bold"> 404 Not Found</h2>
+    <h2 class="fw-bold"> 此頁面不存在 </h2>
     <RouterLink
         type="button"
         class="btn btn-outline-secondary"

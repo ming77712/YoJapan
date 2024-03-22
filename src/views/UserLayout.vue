@@ -53,7 +53,7 @@ export default {
         id="navbarButton"
         ref="navbarItem"
       >
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav text-center ms-auto">
           <li class="nav-item">
             <RouterLink
               to="/products"

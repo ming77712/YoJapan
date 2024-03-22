@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
 import cartStore from '../stores/cartStore';
 import sweetMessageStore from '../stores/sweetMessageStore';
+import ProgressBar from '../components/ProgressBar.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
@@ -38,11 +39,10 @@ export default {
         axios
           .post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
           .then((res) => {
-            this.setSweetMessageSuccess(res.data.message);
             this.$refs.form.resetForm();
             this.form.message = '';
             this.getCart();
-            Swal.fire(this.sweetMessage);
+            this.$router.push(`/order/${res.data.orderId}`);
           })
           .catch((err) => {
             this.setSweetMessageError(err.response.data.message);
@@ -58,227 +58,223 @@ export default {
     ...mapState(cartStore, ['carts', 'cartCount']),
     ...mapState(sweetMessageStore, ['sweetMessage']),
   },
+  components: {
+    ProgressBar,
+  },
 };
 </script>
 
 <template>
-  <div class="container">
-    <div class="text-end">
-      <button
-        class="btn btn-outline-danger"
-        type="button"
-        :disabled="cartCount === 0"
-        @click="removeCartAllItem()"
-      >
-        清空購物車
-      </button>
-    </div>
-    <h2
-      class="text-center"
-      v-if="cartCount === 0"
-    >目前購物車是空的</h2>
-    <table
-      v-else
-      class="table align-middle"
-    >
-      <thead>
-        <tr>
-          <th></th>
-          <th>品名</th>
-          <th style="width: 150px">數量/單位</th>
-          <th>單價</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template v-if="carts.carts">
-          <tr
+  <main>
+    <div class="container mt-12">
+      <ProgressBar :progress="0" />
+      <div class="row justify-content-center">
+        <div class="col-md-6 mb-8 mb-md-0">
+          <h3 class="text-center fs-4">購物車</h3>
+          <hr>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+            v-if="cartCount === 0"
+          >
+            <h3 class="mb-8">購物車現在是空的~ 快去挑選喜愛的行程吧</h3>
+            <RouterLink
+              to="/products"
+              type="button"
+              class="btn btn-primary"
+            >
+              推薦行程
+            </RouterLink>
+          </div>
+          <ul
+            v-else
             v-for="(product, index) in carts.carts"
             :key="index"
           >
-            <td>
-              <button
-                type="button"
-                class="btn btn-outline-danger btn-sm"
-                @click="removeCartItem(product.id)"
-              >
-                <i class="fas fa-spinner fa-pulse"></i>
-                x
-              </button>
-            </td>
-            <td>
-              {{ product.product.title }}
-              <!-- <div class="text-success">
-                            已套用優惠券
-                        </div> -->
-            </td>
-            <td>
-              <div class="input-group input-group-sm">
-                <div class="input-group mb-3">
-                  <!-- <input
-                                    min="1"
-                                    type="number"
-                                    class="form-control"
-                                    :value="product.qty"
-                                > -->
-                  <select
-                    class="form-select"
-                    name="qty"
-                    id="qty"
-                    :value="product.qty"
-                    @change="(e) => changeQty(product.id, product.product_id, e)"
-                  >
-                    <option
-                      :value="i"
-                      v-for="i in 20"
-                      :key="i"
-                    >{{ i }}</option>
-                  </select>
-                  <span
-                    class="input-group-text"
-                    id="basic-addon2"
-                  >{{
-                    product.product.unit
-                  }}</span>
+            <li class="row mb-4">
+              <div class="col-md-5">
+                <img
+                  :src="product.product.imageUrl"
+                  class="w-100"
+                  style="height: 150px;"
+                  alt=""
+                >
+              </div>
+              <div class="col-md-7">
+                <h2 class="fs-5 mt-5 mb-6">{{ product.product.title }}</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="input-group input-group-sm w-25 mb-3">
+                    <select
+                      class="form-select"
+                      name="qty"
+                      id="qty"
+                      :value="product.qty"
+                      @change="(e) => changeQty(product.id, product.product_id, e)"
+                    >
+                      <option
+                        :value="i"
+                        v-for="i in 20"
+                        :key="i"
+                        class="form-control"
+                      >{{ i }}</option>
+                    </select>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <span>價格：$ {{ parseInt(product.product.price).toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+                    <span>小計：$ {{ parseInt(product.product.price * product.qty).toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+                  </div>
+                  <div class="me-8">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      @click="removeCartItem(product.id)"
+                    >
+                      <i class="bi bi-x"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </td>
-            <td class="text-end">
-              <!-- <small class="text-success">折扣價：</small> -->
-              {{ product.total }}
-            </td>
-          </tr>
-        </template>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td
-            colspan="3"
-            class="text-end"
-          >總計</td>
-          <td class="text-end">{{ carts.final_total }}</td>
-        </tr>
-        <!-- <tr>
+            </li>
+          </ul>
+          <hr>
+          <div class="d-flex justify-content-between">
+            <button
+              class="btn btn-sm btn-outline-danger"
+              type="button"
+              :disabled="cartCount === 0"
+              @click="removeCartAllItem()"
+            >
+              清空購物車
+            </button>
+            <span class="fs-4">總計：$ {{ parseInt(carts.final_total).toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
+          </div>
+          <!--
                 <td
                     colspan="3"
                     class="text-end text-success"
                 >折扣價</td>
                 <td class="text-end text-success">{{ }}</td>
-            </tr> -->
-      </tfoot>
-    </table>
-    <div class="my-5 row justify-content-center">
-      <v-form
-        ref="form"
-        class="col-md-6"
-        @submit="createOrder"
-        v-slot="{ errors }"
-      >
-        <div class="mb-3">
-          <label
-            for="email"
-            class="form-label"
-          >Email</label>
-          <v-field
-            id="email"
-            name="Email"
-            type="email"
-            class="form-control"
-            rules="email|required"
-            v-model="form.user.email"
-            :class="{ 'is-invalid': errors['Email'] }"
-            placeholder="請輸入 Email"
-          ></v-field>
-          <error-message
-            name="Email"
-            class="invalid-feedback"
-          ></error-message>
+          -->
         </div>
-
-        <div class="mb-3">
-          <label
-            for="name"
-            class="form-label"
-          >收件人姓名</label>
-          <v-field
-            id="name"
-            name="姓名"
-            type="text"
-            class="form-control"
-            rules="required"
-            v-model="form.user.name"
-            :class="{ 'is-invalid': errors['姓名'] }"
-            placeholder="請輸入姓名"
-          ></v-field>
-          <error-message
-            name="姓名"
-            class="invalid-feedback"
-          ></error-message>
+        <div class="col-md-6">
+          <h3 class="text-center fs-4">訂購人資訊</h3>
+          <hr>
+          <div class="">
+            <v-form
+              ref="form"
+              class=""
+              @submit="createOrder"
+              v-slot="{ errors }"
+            >
+              <div class="mb-2">
+                <label
+                  for="email"
+                  class="form-label"
+                ><span class="text-danger">*</span> Email</label>
+                <v-field
+                  id="email"
+                  name="Email"
+                  type="email"
+                  class="form-control"
+                  rules="email|required"
+                  v-model="form.user.email"
+                  :class="{ 'is-invalid': errors['Email'] }"
+                  placeholder="請輸入 Email"
+                ></v-field>
+                <error-message
+                  name="Email"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-2">
+                <label
+                  for="name"
+                  class="form-label"
+                ><span class="text-danger">*</span> 收件人姓名</label>
+                <v-field
+                  id="name"
+                  name="姓名"
+                  type="text"
+                  class="form-control"
+                  rules="required"
+                  v-model="form.user.name"
+                  :class="{ 'is-invalid': errors['姓名'] }"
+                  placeholder="請輸入姓名"
+                ></v-field>
+                <error-message
+                  name="姓名"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-2">
+                <label
+                  for="tel"
+                  class="form-label"
+                ><span class="text-danger">*</span> 收件人電話</label>
+                <v-field
+                  id="tel"
+                  name="電話"
+                  type="tel"
+                  class="form-control"
+                  rules="required|min:8|max:10"
+                  v-model="form.user.tel"
+                  :class="{ 'is-invalid': errors['電話'] }"
+                  placeholder="請輸入電話"
+                ></v-field>
+                <error-message
+                  name="電話"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-2">
+                <label
+                  for="address"
+                  class="form-label"
+                ><span class="text-danger">*</span> 收件人地址</label>
+                <v-field
+                  id="address"
+                  name="地址"
+                  type="text"
+                  class="form-control"
+                  rules="required"
+                  v-model="form.user.address"
+                  :class="{ 'is-invalid': errors['地址'] }"
+                  placeholder="請輸入地址"
+                ></v-field>
+                <error-message
+                  name="地址"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-2">
+                <label
+                  for="message"
+                  class="form-label"
+                >留言</label>
+                <textarea
+                  name=""
+                  id="message"
+                  class="form-control"
+                  v-model="form.message"
+                  cols="30"
+                  rows="10"
+                ></textarea>
+              </div>
+              <div class="text-end">
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  :disabled="cartCount === 0"
+                >送出訂單</button>
+              </div>
+            </v-form>
+          </div>
         </div>
-
-        <div class="mb-3">
-          <label
-            for="tel"
-            class="form-label"
-          >收件人電話</label>
-          <v-field
-            id="tel"
-            name="電話"
-            type="tel"
-            class="form-control"
-            rules="required|min:8|max:10"
-            v-model="form.user.tel"
-            :class="{ 'is-invalid': errors['電話'] }"
-            placeholder="請輸入電話"
-          ></v-field>
-          <error-message
-            name="電話"
-            class="invalid-feedback"
-          ></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label
-            for="address"
-            class="form-label"
-          >收件人地址</label>
-          <v-field
-            id="address"
-            name="地址"
-            type="text"
-            class="form-control"
-            rules="required"
-            v-model="form.user.address"
-            :class="{ 'is-invalid': errors['地址'] }"
-            placeholder="請輸入地址"
-          ></v-field>
-          <error-message
-            name="地址"
-            class="invalid-feedback"
-          ></error-message>
-        </div>
-
-        <div class="mb-3">
-          <label
-            for="message"
-            class="form-label"
-          >留言</label>
-          <textarea
-            name=""
-            id="message"
-            class="form-control"
-            v-model="form.message"
-            cols="30"
-            rows="10"
-          ></textarea>
-        </div>
-        <div class="text-end">
-          <button
-            type="submit"
-            class="btn btn-danger"
-            :disabled="cartCount === 0"
-          >送出訂單</button>
-        </div>
-      </v-form>
+      </div>
     </div>
-  </div>
+  </main>
 </template>
+
+<style lang="scss" scoped></style>
