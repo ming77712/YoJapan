@@ -1,0 +1,1 @@
+import{_ as t,r as o,o as n,c as s,b as a,w as c,F as r,d as _,g as d}from"./index-NnlbEwpK.js";const l={},u=_("h2",{class:"fw-bold"}," 此頁面不存在 ",-1);function f(i,m){const e=o("RouterLink");return n(),s(r,null,[u,a(e,{type:"button",class:"btn btn-outline-secondary",to:"/"},{default:c(()=>[d(" 返回首頁 ")]),_:1})],64)}const b=t(l,[["render",f]]);export{b as default};
