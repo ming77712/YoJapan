@@ -100,9 +100,18 @@ export default {
                 >
               </div>
               <div class="col-md-7">
-                <h2 class="fs-5 mt-5 mb-6">{{ product.product.title }}</h2>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="input-group input-group-sm w-25 mb-3">
+                  <h2 class="fs-5 mt-5 mb-6">{{ product.product.title }}</h2>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    @click="removeCartItem(product.id)"
+                  >
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="input-group input-group-sm w-40 mb-3">
                     <select
                       class="form-select"
                       name="qty"
@@ -123,15 +132,6 @@ export default {
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
                     <span>小計：$ {{ parseInt(product.product.price * product.qty).toFixed(0)
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
-                  </div>
-                  <div class="me-8">
-                    <button
-                      type="button"
-                      class="btn btn-outline-danger btn-sm"
-                      @click="removeCartItem(product.id)"
-                    >
-                      <i class="bi bi-x"></i>
-                    </button>
                   </div>
                 </div>
               </div>

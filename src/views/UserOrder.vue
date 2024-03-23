@@ -65,7 +65,7 @@ export default {
 
 <template>
   <main>
-    <div class="container mt-12">
+    <div class="container my-12">
       <ProgressBar :progress="progress" />
       <template v-if="isPaid">
         <div class="d-flex flex-column justify-content-center align-items-center mt-10">
@@ -130,7 +130,8 @@ export default {
           </div>
           <div class="col-md-5">
             <ul
-              class="d-flex flex-column justify-content-evenly"
+              class="d-flex flex-column justify-content-evenly
+              border-top border-md-0 p-4"
               v-if="order.user"
               style="height: 500px;"
             >

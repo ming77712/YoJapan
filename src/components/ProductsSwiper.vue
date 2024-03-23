@@ -1,15 +1,12 @@
 <script>
-// import Swiper core and required modules
 import { Navigation } from 'swiper/modules';
 
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { mapState, mapActions } from 'pinia';
 import productsStore from '../stores/productsStore';
 import cartStore from '../stores/cartStore';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -39,23 +36,21 @@ export default {
 <template>
   <swiper
     :modules="modules"
-    :slides-per-view="4"
-    :space-between="12"
+    :space-between="40"
     :loop="true"
     :breakpoints="{
+      1400: {
+        slidesPerView: 4
+      },
       992: {
-        slidesPerView: 4,
-        spaceBetween: 24,
+        slidesPerView: 3
       },
       768: {
-        slidesPerView: 3,
-        spaceBetween: 20,
+        slidesPerView: 2
       },
-      // when window width is >= 320px
-      320: {
-        slidesPerView: 2,
-        spaceBetween: 16,
-      },
+      0: {
+        slidesPerView: 1
+      }
     }"
     navigation
   >
@@ -74,8 +69,8 @@ export default {
         class="cardAnimated"
       >
         <div
-          class="productsImg position-relative card rounded-0"
-          style="width: 300px"
+          class="position-relative card rounded-0"
+          style="width: 300px;"
         >
           <img
             :src="product.imageUrl"
@@ -112,23 +107,6 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.productsImg {
-  width: 80px;
-
-  @media (min-width: 768px) {
-    width: 140px;
-  }
-
-  @media (min-width: 992px) {
-    width: 170px;
-  }
-
-  @media (min-width: 1200px) {
-    width: 200px;
-  }
-
-}
-
 .cardAnimated:hover {
   transform: translateY(-10px);
 }

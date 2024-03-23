@@ -43,9 +43,9 @@ export default {
       to="/cart"
       class="fixedItem shadow bg-white pt-2 mb-3"
     >
-      <i class="position-relative bi bi-cart-fill text-black fs-3">
+      <i class="position-relative bi bi-cart-fill text-black fs-4 fs-md-3">
         <span class="position-absolute top-0 start-100 translate-middle
-        badge rounded-pill bg-primary fs-8">{{ cartCount
+        badge rounded-pill bg-primary fs-8 fs-md-6">{{ cartCount
         }}
         </span></i>
     </RouterLink>
@@ -54,7 +54,7 @@ export default {
       class="fixedItem shadow bg-white pt-2"
       @click="scrollToTop"
     >
-      <i class="bi bi-chevron-compact-up fs-3"></i>
+      <i class="bi bi-chevron-compact-up fs-4 fs-md-3"></i>
     </div>
   </div>
 </template>
@@ -62,9 +62,19 @@ export default {
 <style scoped>
 .fixedItem {
   border-radius: 100%;
-  width: 50px;
-  height: 50px;
   cursor: pointer;
+  width: 45px;
+  height: 45px;
+
+  @media (min-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (min-width: 992px) {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .zIndex {

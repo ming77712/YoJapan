@@ -38,14 +38,14 @@ export default {
 </script>
 
 <template>
-  <main class="py-12">
-    <h2 class="text-center fs-11 mb-12">推薦行程</h2>
+  <main class="py-lg-12 py-md-10 py-8">
+    <h2 class="text-center fs-lg-11 fs-md-3 fs-4 mb-lg-12 mb-md-10 mb-8">推薦行程</h2>
     <div class="container">
-      <ul class="nav flex-column flex-md-row mb-12">
-        <li class="navItem text-center">
+      <ul class="nav flex-column flex-md-row mb-lg-12 mb-md-10 mb-8">
+        <li class="navItem text-center mb-2 mb-md-0">
           <router-link
             to="/products"
-            class="nav-link"
+            class="nav-link fs-md-5 fs-6"
             :class="{ 'link-active': !$route.query.category }"
           >
             全部</router-link>
@@ -54,17 +54,17 @@ export default {
           v-for="item in category"
           :key="item"
         >
-          <li class="navItem text-center">
+          <li class="navItem text-center mb-2 mb-md-0">
             <router-link
               :to="`/products?category=${item}`"
-              class="nav-link"
+              class="nav-link fs-md-5 fs-6"
               :class="{ 'link-active': $route.query.category === item }"
             >
               {{ item }}</router-link>
           </li>
         </template>
       </ul>
-      <ul class="row g-3 g-md-6">
+      <ul class="row g-4 g-md-5 g-lg-6">
         <template
           v-for="(product, index) in products"
           :key="index"
@@ -78,8 +78,7 @@ export default {
                 <div class="card-top overflow-hidden">
                   <img
                     :src="product.imageUrl"
-                    class="w-100"
-                    style="height: 300px;"
+                    class="productImgHeight w-100"
                     :alt="product.title"
                   />
                   <div class="position-absolute d-inline top-0 end-0
@@ -140,5 +139,18 @@ export default {
     color: white;
     font-weight: bold;
   }
+}
+
+.productImgHeight {
+  height: 200px;
+
+  @media (min-width: 768px) {
+    height: 250px;
+  }
+
+  @media (min-width: 992px) {
+    height: 300px;
+  }
+
 }
 </style>

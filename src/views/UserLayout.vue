@@ -1,5 +1,6 @@
 <script>
 import { Collapse } from 'bootstrap';
+import FooterComponent from '../components/FooterComponent.vue';
 import FixedItems from '../components/FixedItems.vue';
 
 export default {
@@ -16,6 +17,7 @@ export default {
     });
   },
   components: {
+    FooterComponent,
     FixedItems,
   },
 };
@@ -29,13 +31,15 @@ export default {
     <div class="container">
       <RouterLink
         to="/"
-        class="navbar-brand fs-3"
+        class="navbar-brand d-flex align-items-center"
       ><img
           class="me-2"
           src="/images/yojapan-logo.svg"
           style="width: 40px; height: 40px;"
           alt="logo"
-        >遊日本</RouterLink>
+        >
+        <h1 class="fs-3">遊日本</h1>
+      </RouterLink>
 
       <button
         class="navbar-toggler"
@@ -70,12 +74,19 @@ export default {
               最新文章
             </RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink
+              to="/about"
+              class="nav-link fs-5"
+            >
+              關於我們
+            </RouterLink>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
-  <div>
-    <RouterView />
-  </div>
+  <RouterView />
   <FixedItems />
+  <FooterComponent />
 </template>
