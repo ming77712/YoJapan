@@ -20,7 +20,7 @@ export default {
 <template>
   <div
     class="position-relative mx-auto my-14"
-    style="height: 30px; max-width: 900px; width: 90%"
+    style="height: 30px; max-width: 800px; width: 90%"
   >
     <div
       class="progress"
@@ -41,7 +41,7 @@ export default {
     >
       1
     </div>
-    <p class="position-absolute top-100 start-0 translate-middle">填寫資料</p>
+    <p class="position-absolute top-100 start-0 translate-middle fs-8 fs-md-6">填寫資料</p>
     <div
       class="position-absolute top-0 start-50 translate-middle btn btn-sm rounded-pill"
       :class="currentProgress >= 50 ? 'btn-primary' : 'btn-gray300'"
@@ -49,7 +49,7 @@ export default {
     >
       2
     </div>
-    <p class="position-absolute top-100 start-50 translate-middle">付款資訊</p>
+    <p class="position-absolute top-100 start-50 translate-middle fs-8 fs-md-6">付款資訊</p>
     <div
       class="position-absolute top-0 start-100 translate-middle btn btn-sm rounded-pill"
       :class="currentProgress >= 100 ? 'btn-primary' : 'btn-gray300'"
@@ -57,7 +57,7 @@ export default {
     >
       3
     </div>
-    <p class="position-absolute top-100 start-100 translate-middle text-nowrap">
+    <p class="position-absolute top-100 start-100 translate-middle text-nowrap fs-8 fs-md-6">
       完成訂單
     </p>
   </div>

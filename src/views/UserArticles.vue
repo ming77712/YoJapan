@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import articlesStore from '../stores/articlesStore';
+import Pagination from '../components/PaginationComponent.vue';
 
 export default {
   methods: {
@@ -10,7 +11,10 @@ export default {
     this.getAllArticle();
   },
   computed: {
-    ...mapState(articlesStore, ['articles']),
+    ...mapState(articlesStore, ['articles', 'pagination']),
+  },
+  components: {
+    Pagination,
   },
 };
 </script>
@@ -51,10 +55,10 @@ export default {
         </template>
       </ul>
     </div>
-    <!-- <pagination
+    <pagination
       :pages="pagination"
-      @change-page="(page) => getAllProduct(pagination.category, page)"
-    ></pagination> -->
+      @change-page="(page) => getAllArticle(page)"
+    ></pagination>
   </main>
 </template>
 

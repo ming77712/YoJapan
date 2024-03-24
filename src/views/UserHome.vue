@@ -275,7 +275,7 @@ export default {
 }
 
 .articleHeight {
-  height: 250px;
+  height: 300px;
 
   @media (min-width: 768px) {
     height: 400px;

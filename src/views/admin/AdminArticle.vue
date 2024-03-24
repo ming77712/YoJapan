@@ -40,7 +40,7 @@ export default {
         })
         .catch((err) => {
           // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
-          console.log('error', err.response, err.request, err.message);
+          // console.log('error', err.response, err.request, err.message);
           this.setSweetMessageError(err.response.data.message);
           Swal.fire(this.sweetMessage);
         });
@@ -54,7 +54,7 @@ export default {
         })
         .catch((err) => {
           // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
-          console.log('error', err.response, err.request, err.message);
+          // console.log('error', err.response, err.request, err.message);
           this.setSweetMessageError(err.response.data.message);
           Swal.fire(this.sweetMessage);
         });

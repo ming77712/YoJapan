@@ -8,14 +8,17 @@ export default defineStore('articlesStore', {
   state: () => ({
     articles: [],
     currentArticle: {},
+    pagination: {},
   }),
   actions: {
-    getAllArticle() {
+    getAllArticle(page = 1) {
       const { toastMessage } = sweetMessageStore();
       axios
-        .get(`${VITE_URL}/api/${VITE_PATH}/articles`)
+        .get(`${VITE_URL}/api/${VITE_PATH}/articles?page=${page}`)
         .then((res) => {
-          this.articles = res.data.articles;
+          const { articles, pagination } = res.data;
+          this.articles = articles;
+          this.pagination = pagination;
         })
         .catch((err) => {
           toastMessage.fire({

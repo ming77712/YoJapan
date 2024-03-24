@@ -83,39 +83,51 @@ export default {
 
 <style scoped>
 .background {
-  width: 430px;
-  height: 520px;
+  width: 370px;
+  height: 460px;
   position: absolute;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
+
+  @media (min-width: 768px) {
+    width: 430px;
+    height: 520px;
+  }
 }
 
 .background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
+  @media (min-width: 768px) {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+  }
 }
 
 .shape:first-child {
-  background: linear-gradient(#1845ad,
-      #23a2f6);
-  left: -80px;
-  top: -80px;
+  @media (min-width: 768px) {
+    background: linear-gradient(#1845ad,
+        #23a2f6);
+    left: -80px;
+    top: -80px;
+  }
 }
 
 .shape:last-child {
-  background: linear-gradient(to right,
-      #ff512f,
-      #f09819);
-  right: -30px;
-  bottom: -80px;
+  @media (min-width: 768px) {
+    background: linear-gradient(to right,
+        #ff512f,
+        #f09819);
+    right: -80px;
+    bottom: -80px;
+  }
 }
 
 form {
-  height: 520px;
-  width: 400px;
+  height: 460px;
+  width: 340px;
+  padding: 50px 35px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
   transform: translate(-50%, -50%);
@@ -125,7 +137,13 @@ form {
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-  padding: 50px 35px;
+
+  @media (min-width: 768px) {
+    height: 520px;
+    width: 400px;
+    padding: 50px 35px;
+
+  }
 }
 
 form * {

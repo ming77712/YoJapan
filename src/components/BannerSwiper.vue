@@ -1,11 +1,8 @@
 <script>
-// import Swiper core and required modules
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 
-// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
