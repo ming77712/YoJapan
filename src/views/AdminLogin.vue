@@ -74,7 +74,7 @@ export default {
       />
       <button
         @click.prevent="login"
-        class="btn btn-lg btn-primary w-100 mt-3"
+        class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-100 mt-4"
         type="submit"
       >登入</button>
     </form>

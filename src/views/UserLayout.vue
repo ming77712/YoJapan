@@ -2,6 +2,8 @@
 import { Collapse } from 'bootstrap';
 import FooterComponent from '@/components/FooterComponent.vue';
 import FixedItems from '@/components/FixedItems.vue';
+import { mapState, mapActions } from 'pinia';
+import cartStore from '@/stores/cartStore';
 
 export default {
   data() {
@@ -9,10 +11,17 @@ export default {
       navCollapse: null,
     };
   },
+  methods: {
+    ...mapActions(cartStore, ['getCart']),
+  },
   mounted() {
+    this.getCart();
     this.navCollapse = new Collapse(this.$refs.navbarItem, {
       toggle: false,
     });
+  },
+  computed: {
+    ...mapState(cartStore, ['cartCount']),
   },
   components: {
     FooterComponent,
@@ -26,7 +35,7 @@ export default {
     class="sticky-top navbar navbar-expand-md shadow-sm"
     style="background-color: #f8f8f8;"
   >
-    <div class="container">
+    <div class="container d-flex justify-content-between  align-items-center">
       <RouterLink
         to="/"
         class="navbar-brand d-flex align-items-center"
@@ -39,17 +48,28 @@ export default {
         <h1 class="fs-3">遊日本</h1>
       </RouterLink>
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarButton"
-        aria-controls="navbarButton"
-        aria-expanded="false"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
+      <div class="d-flex align-items-center">
+        <button
+          class="navbar-toggler me-3"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarButton"
+          aria-controls="navbarButton"
+          aria-expanded="false"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <RouterLink
+          to="/cart"
+          class="d-block d-md-none me-3"
+        >
+          <i class="cartIconMobile position-relative bi bi-cart-fill text-black">
+            <span class="position-absolute top-0 start-100 translate-middle
+          badge rounded-pill bg-primary fs-8">{{ cartCount
+          }}
+            </span></i>
+        </RouterLink>
+      </div>
       <div
         class="collapse navbar-collapse"
         id="navbarButton"
@@ -59,7 +79,7 @@ export default {
           <li class="nav-item">
             <RouterLink
               to="/products"
-              class="nav-link fs-5"
+              class="nav-link"
             >
               推薦行程
             </RouterLink>
@@ -67,7 +87,7 @@ export default {
           <li class="nav-item">
             <RouterLink
               to="/articles"
-              class="nav-link fs-5"
+              class="nav-link"
             >
               最新文章
             </RouterLink>
@@ -75,9 +95,21 @@ export default {
           <li class="nav-item">
             <RouterLink
               to="/about"
-              class="nav-link fs-5"
+              class="nav-link"
             >
               關於我們
+            </RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink
+              to="/cart"
+              class="d-none d-md-block nav-link"
+            >
+              <i class="position-relative bi bi-cart-fill">
+                <span class="position-absolute top-0 start-100 translate-middle
+        badge rounded-pill bg-primary">{{ cartCount
+        }}
+                </span></i>
             </RouterLink>
           </li>
         </ul>
@@ -88,3 +120,9 @@ export default {
   <FixedItems />
   <FooterComponent />
 </template>
+
+<style>
+.cartIconMobile {
+  font-size: 30px;
+}
+</style>

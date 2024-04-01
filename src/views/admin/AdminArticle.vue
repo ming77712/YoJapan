@@ -131,7 +131,7 @@ export default {
   <div>
     <div class="text-end mt-4">
       <button
-        class="btn btn-primary"
+        class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
         type="button"
         @click="openModal(true)"
       >

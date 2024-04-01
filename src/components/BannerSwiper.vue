@@ -46,8 +46,7 @@ export default {
         </h3>
         <RouterLink
           to="/products"
-          class="btn btn-primary border-2 rounded-5 text-white fw-bold fs-5
-          fs-md-4 fs-lg-3 p-1 p-md-2 p-lg-3"
+          class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
         >
           快來探索
         </RouterLink>
@@ -67,8 +66,7 @@ export default {
         </h3>
         <RouterLink
           to="/products"
-          class="btn btn-primary border-2 rounded-5 text-white fw-bold fs-5
-          fs-md-4 fs-lg-3 p-1 p-md-2 p-lg-3"
+          class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
         >
           快來探索
         </RouterLink>
@@ -88,8 +86,7 @@ export default {
         </h3>
         <RouterLink
           to="/products"
-          class="btn btn-primary border-2 rounded-5 text-white fw-bold fs-5
-          fs-md-4 fs-lg-3 p-1 p-md-2 p-lg-3"
+          class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
         >
           快來探索
         </RouterLink>
@@ -109,8 +106,7 @@ export default {
         </h3>
         <RouterLink
           to="/products"
-          class="btn btn-primary border-2 rounded-5 text-white fw-bold fs-5
-          fs-md-4 fs-lg-3 p-1 p-md-2 p-lg-3"
+          class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
         >
           快來探索
         </RouterLink>

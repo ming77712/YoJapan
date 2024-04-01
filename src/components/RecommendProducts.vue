@@ -35,7 +35,7 @@ export default {
               />
               <div class="position-absolute d-inline top-0 end-0 badge
               rounded-0 bg-white text-black">
-                <i class="bi bi-geo-alt-fill me-1"></i>{{ product.category }}
+                <i class="bi bi-geo-alt-fill me-1"></i>{{ product.unit }}
               </div>
             </div>
             <div class="card-body">
@@ -46,7 +46,7 @@ export default {
                 {{ product.title }}
               </h5>
               <div class="d-flex justify-content-between">
-                <span class="fs-5 fs-xl-4">$
+                <span class="fs-5 fs-xl-4">NT$
                   {{
                     parseInt(product.price)
                       .toFixed(0)
@@ -54,7 +54,7 @@ export default {
                   }}</span>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                   @click.prevent="addToCart(product.id)"
                 >
                   加入購物車

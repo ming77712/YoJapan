@@ -72,18 +72,18 @@ export default {
           <h2 class="mb-8">付款完成</h2>
           <div>
             <RouterLink
-              to="/products"
-              type="button"
-              class="btn btn-primary me-2"
-            >
-              繼續選購
-            </RouterLink>
-            <RouterLink
               to="/"
               type="button"
-              class="btn btn-secondary"
+              class="btn btnOutline border-2 rounded-3 fw-600 px-5 py-3 me-2"
             >
               返回首頁
+            </RouterLink>
+            <RouterLink
+              to="/products"
+              type="button"
+              class="btn btn-primary border-2 rounded-3 fw-600 px-5 py-3"
+            >
+              繼續選購
             </RouterLink>
           </div>
         </div>
@@ -159,7 +159,7 @@ export default {
         <div class="text-center">
           <button
             type="submit"
-            class="btn btn-primary w-50"
+            class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
             @click="payOrder(order.id)"
           >
             確認付款
@@ -169,3 +169,13 @@ export default {
     </div>
   </main>
 </template>
+
+<style lang="scss" scoped>
+.btnOutline {
+  border-color: #ff9b50;
+
+  &:hover {
+    background-color: #ff9b50;
+  }
+}
+</style>

@@ -78,7 +78,7 @@ export default {
             :alt="product.title"
           />
           <div class="position-absolute d-inline top-0 end-0 badge rounded-0 bg-white text-black">
-            <i class="bi bi-geo-alt-fill me-1"></i>{{ product.category }}
+            <i class="bi bi-geo-alt-fill me-1"></i>{{ product.unit }}
           </div>
           <div class="card-body">
             <h5
@@ -86,11 +86,11 @@ export default {
               style="height: 40px;"
             >{{ product.title }}</h5>
             <div class="d-flex justify-content-between">
-              <span class="fs-4">$ {{ product.price.toFixed(0)
+              <span class="fs-4">NT$ {{ product.price.toFixed(0)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
               <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                 @click.prevent="
                   addToCart(product.id)
                   "
@@ -109,13 +109,6 @@ export default {
 .cardAnimated:hover {
   transform: translateY(-10px);
 }
-
-/* .swiper-button-prev {
-}
-
-.swiper-button-next {
-}
-*/
 
 .swiper-button-prev:after,
 .swiper-rtl .swiper-button-next:after {

@@ -72,7 +72,7 @@ export default {
               {{ this.currentProduct.title }}
             </h2>
             <span class="d-block my-3 text-gray"><i class="bi bi-geo-alt-fill me-2"></i>{{
-              this.currentProduct.category
+              this.currentProduct.unit
             }}</span>
           </div>
           <div class="border-bottom pb-10">
@@ -80,9 +80,9 @@ export default {
           </div>
           <div class="rounded-5 bg-gray300 p-md-4 p-lg-6 mt-10">
             <div class="d-flex d-md-block flex-column align-items-center">
-              <div class="fs-11 mb-1 mb-md-2">{{ parseInt(this.currentProduct.price).toFixed(0)
+              <div class="fs-11 mb-1 mb-md-2">NT$ {{ parseInt(this.currentProduct.price).toFixed(0)
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} 元</div>
-              <div class="fs-5 mb-2 mb-md-6">原價 <del>
+              <div class="fs-5 mb-2 mb-md-6">原價 NT$ <del>
                   {{ parseInt(this.currentProduct.origin_price).toFixed(0)
                     .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</del> 元</div>
               <div class="d-md-flex mb-2">
@@ -114,7 +114,7 @@ export default {
                 </div>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                   style="width: 200px;"
                   @click.prevent="
                     addToCart(this.currentProduct.id, this.$router.push, this.qty)

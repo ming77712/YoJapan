@@ -31,7 +31,7 @@ export default {
     <BannerSwiper />
     <section class="mt-18">
       <div class="container">
-        <h2 class="fs-3 mb-2">熱門地區</h2>
+        <h2 class="fs-3 mb-3">熱門地區</h2>
         <div class="row mb-3">
           <div class="col-md-8 g-0">
             <img
@@ -42,13 +42,13 @@ export default {
             >
           </div>
           <div class="col-md-4 d-flex flex-column justify-content-center
-           align-items-center border g-0 p-4">
+           borderColor g-0 p-4">
             <h3 class="fs-5 fs-md-4 fs-lg-3 mb-1">東京</h3>
-            <p class="text-center">魅力無限！</p>
-            <p class="text-center mb-2">摩天大樓、繁華街道、流行文化，還有美食天堂，24小時都充滿著活力！</p>
+            <p>魅力無限！</p>
+            <p class="mb-3">摩天大樓、繁華街道、流行文化，還有美食天堂，24小時都充滿著活力！</p>
             <RouterLink
               to="/products?category=東京"
-              class="btn btn-primary border-2 rounded-5 fw-bold fs-md-5"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
             >
               立即前往
             </RouterLink>
@@ -56,13 +56,13 @@ export default {
         </div>
         <div class="row mb-3">
           <div class="col-md-4 d-flex flex-column justify-content-center
-           align-items-center order-2 order-md-1 border g-0 p-4">
+           order-2 order-md-1 borderColor g-0 p-4">
             <h3 class="fs-5 fs-md-4 fs-lg-3 mb-1">大阪</h3>
-            <p class="text-center">熱情似火！</p>
-            <p class="text-center mb-2">美食之都，不僅有美味的壽司和燒肉，還有獨特的文化和歷史，人們總是笑容滿面！</p>
+            <p>熱情似火！</p>
+            <p class="mb-3">美食之都，不僅有美味的壽司和燒肉，還有獨特的文化和歷史，人們總是笑容滿面！</p>
             <RouterLink
               to="/products?category=大阪"
-              class="btn btn-primary border-2 rounded-5 fw-bold fs-md-5"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
             >
               立即前往
             </RouterLink>
@@ -86,13 +86,13 @@ export default {
             >
           </div>
           <div class="col-md-4 d-flex flex-column justify-content-center
-           align-items-center border g-0 p-4">
+           borderColor g-0 p-4">
             <h3 class="fs-5 fs-md-4 fs-lg-3 mb-1">京都</h3>
-            <p class="text-center">神秘浪漫！</p>
-            <p class="text-center mb-2">古老的寺廟、傳統的茶室、美麗的花園，處處都充滿著日本的傳統美學和宗教氛圍！</p>
+            <p>神秘浪漫！</p>
+            <p class="mb-3">古老的寺廟、傳統的茶室、美麗的花園，處處都充滿著日本的傳統美學和宗教氛圍！</p>
             <RouterLink
               to="/products?category=京都"
-              class="btn btn-primary border-2 rounded-5 fw-bold fs-md-5"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
             >
               立即前往
             </RouterLink>
@@ -100,13 +100,13 @@ export default {
         </div>
         <div class="row mb-3">
           <div class="col-md-4 d-flex flex-column justify-content-center
-           align-items-center order-2 order-md-1 border g-0 p-4">
+           order-2 order-md-1 borderColor g-0 p-4">
             <h3 class="fs-5 fs-md-4 fs-lg-3 mb-1">北海道</h3>
-            <p class="text-center">大自然的樂園！</p>
-            <p class="text-center mb-2">絕美的風景、新鮮的海鮮、冬季的滑雪勝地，無論何時都能讓人心曠神怡！</p>
+            <p>大自然的樂園！</p>
+            <p class="mb-3">絕美的風景、新鮮的海鮮、冬季的滑雪勝地，無論何時都能讓人心曠神怡！</p>
             <RouterLink
               to="/products?category=北海道"
-              class="btn btn-primary border-2 rounded-5 fw-bold fs-md-5"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
             >
               立即前往
             </RouterLink>
@@ -160,92 +160,90 @@ export default {
     </section>
     <section class="mt-18">
       <div class="container">
-        <h2 class="fs-3 mb-2">行程瀏覽</h2>
+        <h2 class="fs-3">行程瀏覽</h2>
         <ProductsSwiper />
       </div>
     </section>
     <section class="mt-18">
       <div class="container">
-        <h2 class="fs-3 mb-2">最新文章</h2>
+        <h2 class="fs-3 mb-3">最新文章</h2>
         <ul class="mb-10 mb-md-20">
           <template
             v-for="(item, index) in articles"
             :key="item.id"
           >
             <li
-              class="zoomIn row justify-content-center mb-4 mb-md-9"
+              class="zoomIn row justify-content-center g-0 mb-4 mb-md-9"
               v-if="index % 2 !== 0"
             >
               <div class="col-md-6 order-2 order-md-1">
-                <RouterLink
-                  :to="`/articles/${item.id}`"
-                  class=""
-                >
-                  <div class="articleHeight card mb-4 mb-md-0">
-                    <div class="card-body p-4 p-md-8">
-                      <div class="card-title mb-6">
-                        <h3 class="fs-4 mb-2">{{ item.title }}</h3>
-                        <time class="me-4">{{ $filters.dateUS(item.create_at) }}</time>
-                        <span>{{ item.author }}</span>
-                      </div>
-                      <div class="card-text">
-                        <p class="fw-light fs-6 fs-md-5">
-                          {{ item.description }}
-                        </p>
-                      </div>
+                <div class="articleHeight card rounded-0 mb-4 mb-md-0">
+                  <div class="card-body p-4 p-md-8">
+                    <div class="card-title mb-6">
+                      <h3 class="fs-4 mb-2">{{ item.title }}</h3>
+                      <time class="me-4">{{ $filters.dateUS(item.create_at) }}</time>
+                      <span>{{ item.author }}</span>
+                    </div>
+                    <div class="card-text">
+                      <p class="fw-light fs-6 fs-md-5 mb-6">
+                        {{ item.description }}
+                      </p>
+                      <RouterLink
+                        :to="`/articles/${item.id}`"
+                        class="btn btn-primary border-2 rounded-3 text-white
+                      fw-600 px-5 py-3 w-50"
+                      >
+                        閱讀更多
+                      </RouterLink>
                     </div>
                   </div>
-                </RouterLink>
+                </div>
               </div>
               <div class="col-md-6 order-1 order-md-2">
-                <RouterLink
-                  :to="`/articles/${item.id}`"
-                  class="overflow-hidden w-100"
-                >
+                <div class="overflow-hidden w-100">
                   <img
                     class="articleHeight w-100"
                     :src="item.imageUrl"
                     alt="item.title"
                   />
-                </RouterLink>
+                </div>
               </div>
             </li>
             <li
-              class="zoomIn row justify-content-center mb-4 mb-md-9"
+              class="zoomIn row justify-content-center g-0 mb-4 mb-md-9"
               v-else
             >
               <div class="col-md-6">
-                <RouterLink
-                  :to="`/articles/${item.id}`"
-                  class="overflow-hidden w-100"
-                >
+                <div class="overflow-hidden w-100">
                   <img
                     class="articleHeight w-100"
                     :src="item.imageUrl"
                     alt="item.title"
                   />
-                </RouterLink>
+                </div>
               </div>
               <div class="col-md-6">
-                <RouterLink
-                  :to="`/articles/${item.id}`"
-                  class=""
-                >
-                  <div class="articleHeight card mb-4 mb-md-0">
-                    <div class="card-body p-4 p-md-8">
-                      <div class="card-title mb-6">
-                        <h3 class="fs-4 mb-2">{{ item.title }}</h3>
-                        <time class="me-4">{{ $filters.dateUS(item.create_at) }}</time>
-                        <span>{{ item.author }}</span>
-                      </div>
-                      <div class="card-text">
-                        <p class="fw-light fs-6 fs-md-5">
-                          {{ item.description }}
-                        </p>
-                      </div>
+                <div class="articleHeight card rounded-0 mb-4 mb-md-0">
+                  <div class="card-body p-4 p-md-8">
+                    <div class="card-title mb-6">
+                      <h3 class="fs-4 mb-2">{{ item.title }}</h3>
+                      <time class="me-4">{{ $filters.dateUS(item.create_at) }}</time>
+                      <span>{{ item.author }}</span>
+                    </div>
+                    <div class="card-text">
+                      <p class="fw-light fs-6 fs-md-5 mb-6">
+                        {{ item.description }}
+                      </p>
+                      <RouterLink
+                        :to="`/articles/${item.id}`"
+                        class="btn btn-primary border-2 rounded-3 text-white
+                      fw-600 px-5 py-3 w-50"
+                      >
+                        閱讀更多
+                      </RouterLink>
                     </div>
                   </div>
-                </RouterLink>
+                </div>
               </div>
             </li>
           </template>
@@ -274,11 +272,15 @@ export default {
   }
 }
 
+.borderColor {
+  border: 1px solid rgba(0, 0, 0, 0.175);
+}
+
 .articleHeight {
-  height: 300px;
+  height: 350px;
 
   @media (min-width: 768px) {
-    height: 400px;
+    height: 450px;
   }
 }
 

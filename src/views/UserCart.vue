@@ -265,7 +265,7 @@ export default {
               <div class="text-end">
                 <button
                   type="submit"
-                  class="btn btn-danger"
+                  class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                   :disabled="cartCount === 0"
                 >送出訂單</button>
               </div>

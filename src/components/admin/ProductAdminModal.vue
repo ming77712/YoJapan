@@ -131,6 +131,7 @@ export default {
                     class="form-label"
                   >輸入圖片網址</label>
                   <input
+                    id="imageUrl"
                     type="text"
                     class="form-control"
                     placeholder="請輸入圖片連結"
@@ -188,14 +189,14 @@ export default {
                 </div>
                 <div class="mb-3 col-md-6">
                   <label
-                    for="price"
+                    for="location"
                     class="form-label"
-                  >單位</label>
+                  >位置</label>
                   <input
-                    id="unit"
+                    id="location"
                     type="text"
                     class="form-control"
-                    placeholder="請輸入單位"
+                    placeholder="請輸入位置"
                     v-model="tempProduct.unit"
                   />
                 </div>
@@ -251,7 +252,7 @@ export default {
                   class="form-label"
                 >說明內容</label>
                 <textarea
-                  id="description"
+                  id="content"
                   type="text"
                   class="form-control"
                   placeholder="請輸入說明內容"

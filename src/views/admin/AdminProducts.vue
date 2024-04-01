@@ -92,13 +92,13 @@ export default {
   <div class="text-end mt-4">
     <button
       @click="openModal('uploadImgModal')"
-      class="btn btn-primary me-2"
+      class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 me-2"
     >
       上傳圖片
     </button>
     <button
       @click="openModal('productModal')"
-      class="btn btn-primary"
+      class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
     >
       建立新的產品
     </button>
