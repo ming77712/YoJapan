@@ -2,7 +2,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '../stores/sweetMessageStore';
+import sweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL } = import.meta.env;
 

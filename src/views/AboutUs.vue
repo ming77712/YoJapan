@@ -3,8 +3,6 @@ export default {
   data() {
     return {};
   },
-  methods: {},
-  mounted() { },
 };
 </script>
 
@@ -17,7 +15,7 @@ export default {
           <img
             src="https://images.unsplash.com/photo-1532236204992-f5e85c024202?q=80&w=2695&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             class="shadow-lg rounded-3"
-            alt=""
+            alt="aboutUs-pic-01"
           >
         </div>
         <div class="col-md-6 px-6">
@@ -35,7 +33,7 @@ export default {
             <img
               src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="shadow-lg rounded-3"
-              alt=""
+              alt="aboutUs-pic-02"
             >
           </div>
         </div>
@@ -44,7 +42,7 @@ export default {
             <img
               src="https://images.unsplash.com/photo-1549548284-28057f92c497?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="shadow-lg rounded-3"
-              alt=""
+              alt="aboutUs-pic-03"
             >
           </div>
           <div class="col-md-6 px-6">
@@ -58,5 +56,3 @@ export default {
     </div>
   </main>
 </template>
-
-<style lang="scss" scoped></style>

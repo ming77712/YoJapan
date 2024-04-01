@@ -17,7 +17,6 @@ export default {
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
-      // 將時間格式改為 YYYY-MM-DD
       const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
         .toISOString()
         .split('T');

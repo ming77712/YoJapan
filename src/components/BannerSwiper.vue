@@ -37,7 +37,7 @@ export default {
       <img
         src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         class="bannerHeight w-100"
-        alt=""
+        alt="banner-pic-01"
       />
       <div class="bannerTitle d-flex flex-column align-items-center position-absolute top-40">
         <h2 class="text-white fs-3 fs-md-11 fs-lg-2 mb-3">探索日本</h2>
@@ -58,7 +58,7 @@ export default {
       <img
         src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         class="bannerHeight w-100"
-        alt=""
+        alt="banner-pic-02"
       />
       <div class="bannerTitle d-flex flex-column align-items-center position-absolute top-40">
         <h2 class="text-white fs-3 fs-md-11 fs-lg-2 mb-3">探索日本</h2>
@@ -79,7 +79,7 @@ export default {
       <img
         src="https://images.unsplash.com/photo-1672675964297-7910da4e13e7?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         class="bannerHeight w-100"
-        alt=""
+        alt="banner-pic-03"
       />
       <div class="bannerTitle d-flex flex-column align-items-center position-absolute top-40">
         <h2 class="text-white fs-3 fs-md-11 fs-lg-2 mb-3">探索日本</h2>
@@ -100,7 +100,7 @@ export default {
       <img
         src="https://images.unsplash.com/photo-1703159506204-90a456211c20?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         class="bannerHeight w-100"
-        alt=""
+        alt="banner-pic-04"
       />
       <div class="bannerTitle d-flex flex-column align-items-center position-absolute top-40">
         <h2 class="text-white fs-3 fs-md-11 fs-lg-2 mb-3">探索日本</h2>

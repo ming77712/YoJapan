@@ -1,6 +1,6 @@
 <script>
 import { mapState } from 'pinia';
-import adminStore from '../stores/adminStore';
+import adminStore from '@/stores/adminStore';
 
 export default {
   methods: {},

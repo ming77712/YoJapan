@@ -4,8 +4,8 @@ import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { mapState, mapActions } from 'pinia';
-import productsStore from '../stores/productsStore';
-import cartStore from '../stores/cartStore';
+import productsStore from '@/stores/productsStore';
+import cartStore from '@/stores/cartStore';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -74,7 +74,6 @@ export default {
         >
           <img
             :src="product.imageUrl"
-            class=""
             style="height: 200px;"
             :alt="product.title"
           />

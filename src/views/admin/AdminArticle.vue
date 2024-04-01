@@ -2,9 +2,9 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '../../stores/sweetMessageStore';
-import ArticleModal from '../../components/admin/ArticleModal.vue';
-import DelModal from '../../components/admin/DelModal.vue';
+import sweetMessageStore from '@/stores/sweetMessageStore';
+import ArticleModal from '@/components/admin/ArticleModal.vue';
+import DelModal from '@/components/admin/DelModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
@@ -39,8 +39,6 @@ export default {
           }
         })
         .catch((err) => {
-          // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
-          // console.log('error', err.response, err.request, err.message);
           this.setSweetMessageError(err.response.data.message);
           Swal.fire(this.sweetMessage);
         });
@@ -53,8 +51,6 @@ export default {
           this.isNew = false;
         })
         .catch((err) => {
-          // axios 的錯誤狀態，可參考：https://github.com/axios/axios#handling-errors
-          // console.log('error', err.response, err.request, err.message);
           this.setSweetMessageError(err.response.data.message);
           Swal.fire(this.sweetMessage);
         });
@@ -77,11 +73,9 @@ export default {
       this.tempArticle = item;
       let api = `${VITE_URL}/api/${VITE_PATH}/admin/article`;
       let httpMethod = 'post';
-      // let status = '新增貼文';
       if (!this.isNew) {
         api = `${VITE_URL}/api/${VITE_PATH}/admin/article/${this.tempArticle.id}`;
         httpMethod = 'put';
-        // status = '更新貼文';
       }
       const articleComponent = this.$refs.articleModal;
       axios[httpMethod](api, { data: this.tempArticle })

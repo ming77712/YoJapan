@@ -1,8 +1,8 @@
 <script>
 import axios from 'axios';
 import { mapState, mapActions } from 'pinia';
-import adminStore from '../../stores/adminStore';
-import NavSidebar from '../../components/admin/NavSidebar.vue';
+import adminStore from '@/stores/adminStore';
+import NavSidebar from '@/components/admin/NavSidebar.vue';
 
 export default {
   methods: {

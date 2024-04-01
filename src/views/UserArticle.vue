@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'pinia';
-import articlesStore from '../stores/articlesStore';
+import articlesStore from '@/stores/articlesStore';
 
 export default {
   data() {

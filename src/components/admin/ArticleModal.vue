@@ -15,7 +15,6 @@ export default {
         tag: [''],
       },
       create_at: 0,
-      // 參考：https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs-v3.html#editor
       editor: ClassicEditor,
       editorConfig: {
         toolbar: ['heading', 'bold', 'italic', '|', 'link'],

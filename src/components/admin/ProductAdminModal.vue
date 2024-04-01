@@ -3,7 +3,7 @@ import { Modal } from 'bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '../../stores/sweetMessageStore';
+import sweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
@@ -301,6 +301,7 @@ export default {
                 <img
                   class="images"
                   :src="image"
+                  alt="附圖"
                 />
               </div>
             </div>

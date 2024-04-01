@@ -1,15 +1,13 @@
 <script>
 import { Collapse } from 'bootstrap';
-import FooterComponent from '../components/FooterComponent.vue';
-import FixedItems from '../components/FixedItems.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
+import FixedItems from '@/components/FixedItems.vue';
 
 export default {
   data() {
     return {
       navCollapse: null,
     };
-  },
-  methods: {
   },
   mounted() {
     this.navCollapse = new Collapse(this.$refs.navbarItem, {

@@ -2,11 +2,11 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '../../stores/sweetMessageStore';
-import ProductAdminModal from '../../components/admin/ProductAdminModal.vue';
-import ProductDeleteModal from '../../components/admin/ProductDelModal.vue';
-import Pagination from '../../components/PaginationComponent.vue';
-import UploadImgModal from '../../components/admin/UploadImgModal.vue';
+import sweetMessageStore from '@/stores/sweetMessageStore';
+import ProductAdminModal from '@/components/admin/ProductAdminModal.vue';
+import ProductDeleteModal from '@/components/admin/ProductDelModal.vue';
+import Pagination from '@/components/PaginationComponent.vue';
+import UploadImgModal from '@/components/admin/UploadImgModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 

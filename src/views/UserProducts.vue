@@ -1,9 +1,9 @@
 <script>
 import categoryMixins from '@/mixins/category';
 import { mapState, mapActions } from 'pinia';
-import productsStore from '../stores/productsStore';
-import cartStore from '../stores/cartStore';
-import Pagination from '../components/PaginationComponent.vue';
+import productsStore from '@/stores/productsStore';
+import cartStore from '@/stores/cartStore';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   mixins: [categoryMixins],

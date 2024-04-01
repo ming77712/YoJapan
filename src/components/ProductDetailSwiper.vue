@@ -56,7 +56,7 @@ export default {
       <img
         class="grab w-100"
         :src="image"
-        alt=""
+        alt="thumb-active-pic"
         style="height: 400px; "
       />
     </swiper-slide>
@@ -78,7 +78,7 @@ export default {
       <img
         class="pointer w-100"
         :src="image"
-        alt=""
+        alt="thumb-pic"
         style="height: 100px;"
       />
     </swiper-slide>

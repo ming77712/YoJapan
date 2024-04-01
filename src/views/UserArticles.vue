@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
-import articlesStore from '../stores/articlesStore';
-import Pagination from '../components/PaginationComponent.vue';
+import articlesStore from '@/stores/articlesStore';
+import Pagination from '@/components/PaginationComponent.vue';
 
 export default {
   methods: {

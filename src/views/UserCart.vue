@@ -2,9 +2,9 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapState, mapActions } from 'pinia';
-import cartStore from '../stores/cartStore';
-import sweetMessageStore from '../stores/sweetMessageStore';
-import ProgressBar from '../components/ProgressBar.vue';
+import cartStore from '@/stores/cartStore';
+import sweetMessageStore from '@/stores/sweetMessageStore';
+import ProgressBar from '@/components/ProgressBar.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
@@ -96,7 +96,7 @@ export default {
                   :src="product.product.imageUrl"
                   class="w-100"
                   style="height: 150px;"
-                  alt=""
+                  alt="product.product.title"
                 >
               </div>
               <div class="col-md-7">
@@ -276,5 +276,3 @@ export default {
     </div>
   </main>
 </template>
-
-<style lang="scss" scoped></style>

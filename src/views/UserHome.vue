@@ -1,9 +1,9 @@
 <script>
 import { mapState, mapActions } from 'pinia';
-import BannerSwiper from '../components/BannerSwiper.vue';
-import ProductsSwiper from '../components/ProductsSwiper.vue';
+import BannerSwiper from '@/components/BannerSwiper.vue';
+import ProductsSwiper from '@/components/ProductsSwiper.vue';
 
-import articlesStore from '../stores/articlesStore';
+import articlesStore from '@/stores/articlesStore';
 
 export default {
   data() {
@@ -38,7 +38,7 @@ export default {
               src="https://images.unsplash.com/photo-1526193439956-0d961851d084?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="w-100"
               style="height: 250px;"
-              alt="Tokyo-image"
+              alt="Tokyo-pic"
             >
           </div>
           <div class="col-md-4 d-flex flex-column justify-content-center
@@ -72,7 +72,7 @@ export default {
               src="https://images.unsplash.com/photo-1560291544-515e5417bddb?q=80&w=2642&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="w-100"
               style="height: 250px;"
-              alt="Osaka-image"
+              alt="Osaka-pic"
             >
           </div>
         </div>
@@ -82,7 +82,7 @@ export default {
               src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="w-100"
               style="height: 250px;"
-              alt="Kyoto-image"
+              alt="Kyoto-pic"
             >
           </div>
           <div class="col-md-4 d-flex flex-column justify-content-center
@@ -116,7 +116,7 @@ export default {
               src="https://images.unsplash.com/photo-1682594400910-b3477570b4a4?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="w-100"
               style="height: 250px;"
-              alt="Hokkaido-image"
+              alt="Hokkaido-pic"
             >
           </div>
         </div>
@@ -129,7 +129,7 @@ export default {
             <div class="text-center border border-white py-2">
               <img
                 src="../../public/images/ticket.svg"
-                alt="ticket"
+                alt="ticket-icon"
                 style="height: 100px; width: 100px;"
               >
               <p class="text-white fs-4 mt-3">門票預訂</p>
@@ -140,7 +140,7 @@ export default {
               <img
                 src="../../public/images/plan.svg"
                 style="height: 100px; width: 100px;"
-                alt="plan"
+                alt="plan-icon"
               >
               <p class="text-white fs-4 mt-3">行程安排</p>
             </div>
@@ -150,7 +150,7 @@ export default {
               <img
                 src="../../public/images/book-online-rounded.svg"
                 style="height: 100px; width: 100px;"
-                alt="book-online"
+                alt="book-online-icon"
               >
               <p class="text-white fs-4 mt-3">線上完成</p>
             </div>
@@ -205,7 +205,7 @@ export default {
                   <img
                     class="articleHeight w-100"
                     :src="item.imageUrl"
-                    alt=""
+                    alt="item.title"
                   />
                 </RouterLink>
               </div>
@@ -222,7 +222,7 @@ export default {
                   <img
                     class="articleHeight w-100"
                     :src="item.imageUrl"
-                    alt=""
+                    alt="item.title"
                   />
                 </RouterLink>
               </div>

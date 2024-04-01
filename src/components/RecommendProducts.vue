@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from 'pinia';
-import cartStore from '../stores/cartStore';
+import cartStore from '@/stores/cartStore';
 
 export default {
   props: ['pickProducts'],

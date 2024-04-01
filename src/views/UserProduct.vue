@@ -1,9 +1,9 @@
 <script>
 import { mapState, mapActions } from 'pinia';
-import productsStore from '../stores/productsStore';
-import cartStore from '../stores/cartStore';
-import ProductDetailSwiper from '../components/ProductDetailSwiper.vue';
-import RecommendProducts from '../components/RecommendProducts.vue';
+import productsStore from '@/stores/productsStore';
+import cartStore from '@/stores/cartStore';
+import ProductDetailSwiper from '@/components/ProductDetailSwiper.vue';
+import RecommendProducts from '@/components/RecommendProducts.vue';
 
 export default {
   data() {
