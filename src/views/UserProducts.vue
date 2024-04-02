@@ -41,26 +41,30 @@ export default {
   <main class="py-lg-12 py-md-10 py-8">
     <h2 class="text-center fs-lg-11 fs-md-3 fs-4 mb-lg-12 mb-md-10 mb-8">推薦行程</h2>
     <div class="container">
-      <ul class="nav flex-column flex-md-row mb-lg-12 mb-md-10 mb-8">
-        <li class="navItem text-center mb-2 mb-md-0">
+      <ul class="nav flex-column flex-md-row gap-4 mb-lg-12 mb-md-10 mb-8">
+        <li class="navItem text-center">
           <router-link
             to="/products"
             class="nav-link fs-md-5 fs-6"
             :class="{ 'link-active': !$route.query.category }"
+            style="background-image: url('https://images.unsplash.com/photo-1612104425262-6a5b6082a4ea?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"
           >
-            全部</router-link>
+            <span class="zIndex position-relative
+              fs-md-5 fs-6 fw-bold text-white">全部</span></router-link>
         </li>
         <template
           v-for="item in category"
           :key="item"
         >
-          <li class="navItem text-center mb-2 mb-md-0">
+          <li class="navItem categoryBg text-center">
             <router-link
-              :to="`/products?category=${item}`"
-              class="nav-link fs-md-5 fs-6"
-              :class="{ 'link-active': $route.query.category === item }"
+              :to="`/products?category=${item.name}`"
+              class="nav-link"
+              :class="{ 'link-active': $route.query.category === item.name }"
+              :style="`background-image: url(${item.bgImage});`"
             >
-              {{ item }}</router-link>
+              <span class="zIndex position-relative
+              fs-md-5 fs-6 fw-bold text-white">{{ item.name }}</span></router-link>
           </li>
         </template>
       </ul>
@@ -121,24 +125,41 @@ export default {
 <style lang="scss" scoped>
 .navItem {
   flex-grow: 1;
-  border: 1px solid black;
-  margin: 0 -1px -1px 0
+  margin: 0 -1px -1px 0;
 }
 
 .nav-link {
+  background-size: cover;
+  background-position: center;
   text-align: center;
+  position: relative;
 
-  &.link-active {
-    background-color: #ff5b00;
-    color: white;
-    font-weight: bold;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .7);
   }
 
   &:hover {
-    background-color: #ff5b00;
-    color: white;
-    font-weight: bold;
+    &::before {
+      background-color: rgba(0, 0, 0, .1);
+      transition: 0.5s;
+    }
   }
+
+  &.link-active {
+    &::before {
+      background-color: rgba(0, 0, 0, .1);
+    }
+  }
+}
+
+.zIndex {
+  z-index: 1;
 }
 
 .productImgHeight {
