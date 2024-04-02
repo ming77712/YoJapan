@@ -64,9 +64,12 @@ export default {
           class="d-block d-md-none me-3"
         >
           <i class="cartIconMobile position-relative bi bi-cart-fill text-black">
-            <span class="position-absolute top-0 start-100 translate-middle
-          badge rounded-pill bg-primary fs-8">{{ cartCount
-          }}
+            <span
+              class="position-absolute top-0 start-100 translate-middle
+          badge rounded-pill bg-primary fs-8"
+              :class="cartCount === 0 ? 'd-none' : 'd-block'"
+            >{{ cartCount
+            }}
             </span></i>
         </RouterLink>
       </div>
@@ -127,5 +130,4 @@ export default {
 <style>
 .cartIconMobile {
   font-size: 30px;
-}
-</style>
+}</style>
