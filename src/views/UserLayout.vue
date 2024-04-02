@@ -106,9 +106,12 @@ export default {
               class="d-none d-md-block nav-link"
             >
               <i class="position-relative bi bi-cart-fill">
-                <span class="position-absolute top-0 start-100 translate-middle
-        badge rounded-pill bg-primary">{{ cartCount
-        }}
+                <span
+                  class="position-absolute top-0 start-100 translate-middle
+                  badge rounded-pill bg-primary"
+                  :class="cartCount === 0 ? 'd-none' : 'd-block'"
+                >{{ cartCount
+                }}
                 </span></i>
             </RouterLink>
           </li>

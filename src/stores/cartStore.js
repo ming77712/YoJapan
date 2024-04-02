@@ -27,7 +27,7 @@ export default defineStore('cartStore', {
           });
         });
     },
-    addToCart(productId, routerMethod, qty = 1) {
+    addToCart(productId, qty = 1) {
       const { toastMessage } = sweetMessageStore();
       const data = {
         product_id: productId,
@@ -39,9 +39,6 @@ export default defineStore('cartStore', {
       axios
         .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
         .then((res) => {
-          if (routerMethod) {
-            routerMethod('/products');
-          }
           toastMessage.fire({
             icon: 'success',
             title: res.data.message,
@@ -85,8 +82,8 @@ export default defineStore('cartStore', {
         title: '確定要清空購物車?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#ff5b00',
         confirmButtonText: '確定',
         cancelButtonText: '取消',
       }).then((result) => {
@@ -111,21 +108,33 @@ export default defineStore('cartStore', {
     },
     removeCartItem(productId) {
       const { toastMessage } = sweetMessageStore();
-      axios
-        .delete(`${VITE_URL}/api/${VITE_PATH}/cart/${productId}`)
-        .then((res) => {
-          toastMessage.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          this.getCart();
-        })
-        .catch((err) => {
-          toastMessage.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
+      Swal.fire({
+        title: '確定要刪除該商品?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#ff5b00',
+        confirmButtonText: '確定',
+        cancelButtonText: '取消',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios
+            .delete(`${VITE_URL}/api/${VITE_PATH}/cart/${productId}`)
+            .then((res) => {
+              toastMessage.fire({
+                icon: 'success',
+                title: res.data.message,
+              });
+              this.getCart();
+            })
+            .catch((err) => {
+              toastMessage.fire({
+                icon: 'error',
+                title: err.response.data.message,
+              });
+            });
+        }
+      });
     },
   },
 });

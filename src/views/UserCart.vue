@@ -69,8 +69,8 @@ export default {
     <div class="container mt-12">
       <ProgressBar :progress="0" />
       <div class="row justify-content-center">
-        <div class="col-md-6 mb-8 mb-md-0">
-          <h3 class="text-center fs-4">購物車</h3>
+        <div class="col-md-6 g-10 mb-8 mb-md-0">
+          <h3 class="fs-4">購物車</h3>
           <hr>
           <div
             class="d-flex flex-column justify-content-center align-items-center"
@@ -80,7 +80,7 @@ export default {
             <RouterLink
               to="/products"
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
             >
               推薦行程
             </RouterLink>
@@ -91,7 +91,7 @@ export default {
             :key="index"
           >
             <li class="row mb-4">
-              <div class="col-md-5">
+              <div class="col-lg-5">
                 <img
                   :src="product.product.imageUrl"
                   class="w-100"
@@ -99,15 +99,15 @@ export default {
                   alt="product.product.title"
                 >
               </div>
-              <div class="col-md-7">
+              <div class="col-lg-7">
                 <div class="d-flex justify-content-between align-items-center">
                   <h2 class="fs-5 mt-5 mb-6">{{ product.product.title }}</h2>
                   <button
                     type="button"
-                    class="btn btn-outline-danger btn-sm"
+                    class="btn btn-sm"
                     @click="removeCartItem(product.id)"
                   >
-                    <i class="bi bi-x"></i>
+                    <i class="bi bi-x fs-5"></i>
                   </button>
                 </div>
                 <div class="d-flex justify-content-between align-items-center">
@@ -128,9 +128,9 @@ export default {
                     </select>
                   </div>
                   <div class="d-flex flex-column justify-content-center">
-                    <span>價格：$ {{ parseInt(product.product.price).toFixed(0)
+                    <span>價格：NT$ {{ parseInt(product.product.price).toFixed(0)
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
-                    <span>小計：$ {{ parseInt(product.product.price * product.qty).toFixed(0)
+                    <span>小計：NT$ {{ parseInt(product.product.price * product.qty).toFixed(0)
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
                   </div>
                 </div>
@@ -140,14 +140,14 @@ export default {
           <hr>
           <div class="d-flex justify-content-between">
             <button
-              class="btn btn-sm btn-outline-danger"
+              class="btn btn-outline-danger border-2 rounded-3 fw-600 px-5 py-3"
               type="button"
               :disabled="cartCount === 0"
               @click="removeCartAllItem()"
             >
               清空購物車
             </button>
-            <span class="fs-4">總計：$ {{ parseInt(carts.final_total).toFixed(0)
+            <span class="fs-4">總計：NT$ {{ parseInt(carts.final_total).toFixed(0)
               .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
           </div>
           <!--
@@ -158,8 +158,8 @@ export default {
                 <td class="text-end text-success">{{ }}</td>
           -->
         </div>
-        <div class="col-md-6">
-          <h3 class="text-center fs-4">訂購人資訊</h3>
+        <div class="col-md-6 g-10">
+          <h3 class="fs-4">訂購人資訊</h3>
           <hr>
           <div class="">
             <v-form

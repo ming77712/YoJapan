@@ -91,8 +91,8 @@ export default {
                     class="card-title mb-10"
                     style="height: 40px;"
                   >{{ product.title }}</h5>
-                  <div class="d-flex justify-content-between">
-                    <span class="fs-4">$ {{ parseInt(product.price).toFixed(0)
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="fs-4">NT$ {{ parseInt(product.price).toFixed(0)
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
                     <button
                       type="button"

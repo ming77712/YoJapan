@@ -67,26 +67,26 @@ export default {
           <ProductDetailSwiper :images="this.currentProduct.imagesUrl"></ProductDetailSwiper>
         </div>
         <div class="col-md-6 col-xl-5">
-          <div class="border-bottom mb-10">
-            <h2 class="fs-11">
+          <div class="mb-6">
+            <h2 class="fs-11 mb-2">
               {{ this.currentProduct.title }}
             </h2>
-            <span class="d-block my-3 text-gray"><i class="bi bi-geo-alt-fill me-2"></i>{{
+            <span class="d-block text-gray"><i class="bi bi-geo-alt-fill me-2"></i>{{
               this.currentProduct.unit
             }}</span>
           </div>
-          <div class="border-bottom pb-10">
+          <div class="pb-5 pb-md-10">
             <p>{{ this.currentProduct.description }}</p>
           </div>
-          <div class="rounded-5 bg-gray300 p-md-4 p-lg-6 mt-10">
-            <div class="d-flex d-md-block flex-column align-items-center">
-              <div class="fs-11 mb-1 mb-md-2">NT$ {{ parseInt(this.currentProduct.price).toFixed(0)
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} 元</div>
-              <div class="fs-5 mb-2 mb-md-6">原價 NT$ <del>
-                  {{ parseInt(this.currentProduct.origin_price).toFixed(0)
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</del> 元</div>
-              <div class="d-md-flex mb-2">
-                <div class="d-flex me-5 mb-2 mb-md-0">
+          <div class="d-flex d-md-block flex-column align-items-center">
+            <div class="fs-11 mb-1 mb-md-2">NT$ {{ parseInt(this.currentProduct.price).toFixed(0)
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} 元</div>
+            <div class="fs-5 mb-2 mb-md-6">原價 NT$ <del>
+                {{ parseInt(this.currentProduct.origin_price).toFixed(0)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</del> 元</div>
+            <div class="rounded-3 bg-gray300 p-6 p-md-6 mt-6 mt-md-12">
+              <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
+                <div class="d-flex align-items-center me-lg-5 mb-6 mb-lg-0">
                   <button
                     type="button"
                     class="borderRounded me-2"
@@ -97,7 +97,7 @@ export default {
                   </button>
                   <input
                     type="number"
-                    class="form-control border-0 fs-4 me-2"
+                    class="form-control text-center border-0 fs-4 me-2"
                     style="width: 80px;"
                     min="1"
                     :value="qty"
@@ -117,7 +117,7 @@ export default {
                   class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                   style="width: 200px;"
                   @click.prevent="
-                    addToCart(this.currentProduct.id, this.$router.push, this.qty)
+                    addToCart(this.currentProduct.id, this.qty)
                     "
                 >
                   加入購物車
@@ -136,6 +136,8 @@ export default {
 
 <style scoped>
 .borderRounded {
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
 }
 </style>

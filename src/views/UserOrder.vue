@@ -89,7 +89,7 @@ export default {
         </div>
       </template>
       <template v-else>
-        <h3 class="text-center fs-4">訂單資訊</h3>
+        <h3 class="fs-4">訂單資訊</h3>
         <hr />
         <div class="row justify-content-center">
           <div class="col-md-7 mb-8 mb-md-0">
@@ -110,13 +110,13 @@ export default {
                   <h2 class="fs-5 mt-5 mb-6">{{ product.product.title }}</h2>
                   <div class="d-flex justify-content-between align-items-center">
                     <div>
-                      <div class="mb-1">價格：$
+                      <div class="mb-1">價格：NT$
                         {{
                           parseInt(product.product.price)
                             .toFixed(0)
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                         }} x {{ product.qty }}</div>
-                      <div>小計：$
+                      <div>小計：NT$
                         {{
                           parseInt(product.product.price * product.qty)
                             .toFixed(0)
@@ -130,8 +130,8 @@ export default {
           </div>
           <div class="col-md-5">
             <ul
-              class="d-flex flex-column justify-content-evenly
-              border-top border-md-0 p-4"
+              class="d-flex flex-column justify-content-between
+              border-top border-md-0 p-4 mb-9"
               v-if="order.user"
               style="height: 500px;"
             >
@@ -153,17 +153,15 @@ export default {
               >付款狀態：付款完成</li>
               <li class="fs-5">備註：{{ order.message }}</li>
             </ul>
+            <button
+              type="submit"
+              class="btn btn-primary border-2
+              rounded-3 text-white fw-600 px-5 py-3 ms-5 w-50"
+              @click="payOrder(order.id)"
+            >
+              確認付款
+            </button>
           </div>
-        </div>
-        <hr />
-        <div class="text-center">
-          <button
-            type="submit"
-            class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3 w-50"
-            @click="payOrder(order.id)"
-          >
-            確認付款
-          </button>
         </div>
       </template>
     </div>

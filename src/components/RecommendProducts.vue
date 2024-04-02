@@ -45,7 +45,7 @@ export default {
               >
                 {{ product.title }}
               </h5>
-              <div class="d-flex justify-content-between">
+              <div class="d-flex justify-content-between align-items-center">
                 <span class="fs-5 fs-xl-4">NT$
                   {{
                     parseInt(product.price)
