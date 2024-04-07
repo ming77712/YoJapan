@@ -1,9 +1,10 @@
 <script>
-import { FreeMode, Thumbs } from 'swiper/modules';
+import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
 
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
+import 'swiper/css/navigation';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
 
@@ -13,7 +14,7 @@ export default {
     return {
       imagesLength: 0,
       thumbsSwiper: { value: null },
-      modules: [FreeMode, Thumbs],
+      modules: [Navigation, FreeMode, Thumbs],
     };
   },
   methods: {
@@ -46,6 +47,10 @@ export default {
   <swiper
     :thumbs="{ swiper: thumbsSwiper.value }"
     :modules="modules"
+    :navigation="{
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    }"
     class="mb-6"
   >
     <swiper-slide
@@ -60,6 +65,10 @@ export default {
         style="height: 400px; "
       />
     </swiper-slide>
+    <div class="swiper-button-prev"><i class="bi bi-arrow-left-square-fill
+    text-gray300 fs-10"></i></div>
+    <div class="swiper-button-next"><i class="bi bi-arrow-right-square-fill
+    text-gray300 fs-10"></i></div>
   </swiper>
 
   <swiper
@@ -85,7 +94,15 @@ export default {
   </swiper>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.swiper {
+
+  &-button-prev:after,
+  &-button-next:after {
+    content: '';
+  }
+}
+
 .swiper-slide {
   opacity: 0.4;
 }

@@ -52,7 +52,10 @@ export default {
         slidesPerView: 1
       }
     }"
-    navigation
+    :navigation="{
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    }"
   >
     <swiper-slide
       class="
@@ -102,6 +105,10 @@ export default {
         </div>
       </RouterLink>
     </swiper-slide>
+    <div class="swiper-button-prev"><i class="bi bi-arrow-left-square-fill
+    text-gray300 fs-11"></i></div>
+    <div class="swiper-button-next"><i class="bi bi-arrow-right-square-fill
+    text-gray300 fs-11"></i></div>
   </swiper>
 </template>
 
@@ -110,15 +117,11 @@ export default {
   transform: translateY(-10px);
 }
 
-.swiper-button-prev:after,
-.swiper-rtl .swiper-button-next:after {
-  content: 'prev';
-  color: #9d9d9d;
-}
+.swiper {
 
-.swiper-button-next:after,
-.swiper-rtl .swiper-button-prev:after {
-  content: 'next';
-  color: #9d9d9d;
+  &-button-prev:after,
+  &-button-next:after {
+    content: '';
+  }
 }
 </style>
