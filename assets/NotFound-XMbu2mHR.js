@@ -1,0 +1,1 @@
+import{_ as t,r as o,o as n,c as s,g as a,w as c,F as r,a as _,h as l}from"./index-w3o53S_6.js";const d={},u=_("h2",{class:"fw-bold"}," 此頁面不存在 ",-1);function f(i,m){const e=o("RouterLink");return n(),s(r,null,[u,a(e,{type:"button",class:"btn btn-outline-secondary",to:"/"},{default:c(()=>[l(" 返回首頁 ")]),_:1})],64)}const h=t(d,[["render",f]]);export{h as default};
