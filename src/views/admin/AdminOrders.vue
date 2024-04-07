@@ -127,7 +127,7 @@ export default {
             <td>
               <div class="form-check form-switch">
                 <input
-                  class="form-check-input"
+                  class="form-check-input rounded-5"
                   type="checkbox"
                   :id="`paidSwitch${item.id}`"
                   v-model="item.is_paid"
