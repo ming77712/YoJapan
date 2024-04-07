@@ -82,8 +82,8 @@ export default defineStore('cartStore', {
         title: '確定要清空購物車?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#ff5b00',
+        confirmButtonColor: '#ff5b00',
+        cancelButtonColor: '#9d9d9d',
         confirmButtonText: '確定',
         cancelButtonText: '取消',
       }).then((result) => {
@@ -112,8 +112,8 @@ export default defineStore('cartStore', {
         title: '確定要刪除該商品?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#ff5b00',
+        confirmButtonColor: '#ff5b00',
+        cancelButtonColor: '#9d9d9d',
         confirmButtonText: '確定',
         cancelButtonText: '取消',
       }).then((result) => {

@@ -80,32 +80,33 @@ export default {
           </div>
           <div class="d-flex d-md-block flex-column align-items-center">
             <div class="fs-11 mb-1 mb-md-2">NT$ {{ parseInt(this.currentProduct.price).toFixed(0)
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} 元</div>
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</div>
             <div class="fs-5 mb-2 mb-md-6">原價 NT$ <del>
                 {{ parseInt(this.currentProduct.origin_price).toFixed(0)
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</del> 元</div>
-            <div class="rounded-3 bg-gray300 p-6 p-md-6 mt-6 mt-md-12">
-              <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center">
-                <div class="d-flex align-items-center me-lg-5 mb-6 mb-lg-0">
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</del></div>
+            <div class="p-2 p-md-4 mt-4 mt-md-10">
+              <div class="d-flex flex-column flex-lg-row align-items-center">
+                <div class="d-flex justify-content-between align-items-center
+                gap-2 me-lg-5 mb-6 mb-lg-0">
                   <button
                     type="button"
-                    class="borderRounded me-2"
+                    class="border-0 bg-transparent"
                     @click.prevent="subQty()"
                     :disabled="qty === 1"
                   >
                     <i class="bi bi-dash fs-4"></i>
                   </button>
                   <input
-                    type="number"
-                    class="form-control text-center border-0 fs-4 me-2"
-                    style="width: 80px;"
+                    type="text"
+                    class="form-control border-0 text-center fs-4 p-0"
                     min="1"
                     :value="qty"
+                    style="width: 80px;"
                     readonly
                   />
                   <button
                     type="button"
-                    class="borderRounded"
+                    class="border-0 bg-transparent"
                     @click.prevent="addQty()"
                     :disabled="qty === 20"
                   >
@@ -136,8 +137,8 @@ export default {
 
 <style scoped>
 .borderRounded {
-  width: 45px;
-  height: 45px;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
 }
 </style>

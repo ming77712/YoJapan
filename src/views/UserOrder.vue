@@ -81,7 +81,7 @@ export default {
             <RouterLink
               to="/products"
               type="button"
-              class="btn btn-primary border-2 rounded-3 fw-600 px-5 py-3"
+              class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
             >
               繼續選購
             </RouterLink>
@@ -171,9 +171,11 @@ export default {
 <style lang="scss" scoped>
 .btnOutline {
   border-color: #ff9b50;
+  color: #ff9b50;
 
   &:hover {
     background-color: #ff9b50;
+    color: white;
   }
 }
 </style>

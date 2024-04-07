@@ -140,7 +140,7 @@ export default {
           <hr>
           <div class="d-flex justify-content-between">
             <button
-              class="btn btn-outline-danger border-2 rounded-3 fw-600 px-5 py-3"
+              class="removeCartBtn btn btn-outline-gray1 border-2 rounded-3 fw-600 px-5 py-3"
               type="button"
               :disabled="cartCount === 0"
               @click="removeCartAllItem()"
@@ -276,3 +276,11 @@ export default {
     </div>
   </main>
 </template>
+
+<style scoped>
+.removeCartBtn {
+  &:hover {
+    color: white;
+  }
+}
+</style>

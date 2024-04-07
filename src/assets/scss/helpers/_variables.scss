@@ -312,6 +312,7 @@ $light: $gray-100 !default;
 $dark: $gray-900 !default;
 $gray: $gray-600 !default;
 $gray300: $gray-300 !default;
+$gray1: #9d9d9d !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -326,6 +327,7 @@ $theme-colors: (
   'dark': $dark,
   'gray': $gray,
   'gray300': $gray300,
+  'gray1': $gray1,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -376,7 +378,7 @@ $escaped-characters: (
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-caret: true !default;
-$enable-rounded: true !default;
+$enable-rounded: false !default;
 $enable-shadows: false !default;
 $enable-gradients: false !default;
 $enable-transitions: true !default;
@@ -460,12 +462,6 @@ $spacers: (
   // 80
   21: $spacer * 5.25,
   // 84
-  22: $spacer * 5.5,
-  // 88
-  24: $spacer * 6,
-  // 96
-  74: $spacer * 18.5,
-  // 296
 ) !default;
 // scss-docs-end spacer-variables-maps
 

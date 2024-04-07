@@ -36,22 +36,26 @@ export default {
       ></div>
     </div>
     <div
-      class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill"
+      class="position-absolute top-0 start-0 translate-middle
+      btn btn-sm btn-primary rounded-pill text-white"
       style="width: 2rem; height: 2rem"
     >
       1
     </div>
     <p class="position-absolute top-100 start-0 translate-middle fs-8 fs-md-6">填寫資料</p>
     <div
-      class="position-absolute top-0 start-50 translate-middle btn btn-sm rounded-pill"
+      class="position-absolute top-0 start-50 translate-middle
+      btn btn-sm rounded-pill text-white"
       :class="currentProgress >= 50 ? 'btn-primary' : 'btn-gray300'"
       style="width: 2rem; height: 2rem"
     >
       2
     </div>
-    <p class="position-absolute top-100 start-50 translate-middle fs-8 fs-md-6">付款資訊</p>
+    <p class="position-absolute top-100 start-50 translate-middle
+    fs-8 fs-md-6">付款資訊</p>
     <div
-      class="position-absolute top-0 start-100 translate-middle btn btn-sm rounded-pill"
+      class="position-absolute top-0 start-100 translate-middle
+      btn btn-sm rounded-pill text-white"
       :class="currentProgress >= 100 ? 'btn-primary' : 'btn-gray300'"
       style="width: 2rem; height: 2rem"
     >

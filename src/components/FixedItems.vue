@@ -30,14 +30,12 @@ export default {
 </script>
 
 <template>
-  <div class="zIndex position-fixed end-2 bottom-4 text-center">
-    <div
-      v-if="isShow"
-      class="fixedItem shadow bg-white pt-2"
-      @click="scrollToTop"
-    >
-      <i class="bi bi-chevron-compact-up fs-4 fs-md-3"></i>
-    </div>
+  <div
+    v-if="isShow"
+    class="fixedItem zIndex position-fixed end-2 bottom-4 text-center shadow bg-white pt-1"
+    @click="scrollToTop"
+  >
+    <i class="bi bi-chevron-compact-up fs-4"></i>
   </div>
 </template>
 
@@ -47,16 +45,6 @@ export default {
   cursor: pointer;
   width: 45px;
   height: 45px;
-
-  @media (min-width: 768px) {
-    width: 50px;
-    height: 50px;
-  }
-
-  @media (min-width: 992px) {
-    width: 60px;
-    height: 60px;
-  }
 }
 
 .zIndex {

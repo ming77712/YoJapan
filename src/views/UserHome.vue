@@ -31,7 +31,7 @@ export default {
     <BannerSwiper />
     <section class="mt-18">
       <div class="container">
-        <h2 class="fs-3 mb-3">熱門地區</h2>
+        <h2 class="fs-3 mb-5">熱門地區</h2>
         <div class="row mb-3">
           <div class="col-md-8 g-0">
             <img
@@ -166,7 +166,7 @@ export default {
     </section>
     <section class="mt-18">
       <div class="container">
-        <h2 class="fs-3 mb-3">最新文章</h2>
+        <h2 class="fs-3 mb-5">最新文章</h2>
         <ul class="mb-10 mb-md-20">
           <template
             v-for="(item, index) in articles"

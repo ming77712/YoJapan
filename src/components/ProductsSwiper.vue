@@ -60,7 +60,7 @@ export default {
     flex-column
     justify-content-center
     align-items-center
-    mt-3"
+    mt-5"
       v-for="(product, index) in   products  "
       :key="index"
     >
@@ -113,12 +113,12 @@ export default {
 .swiper-button-prev:after,
 .swiper-rtl .swiper-button-next:after {
   content: 'prev';
-  color: white;
+  color: #9d9d9d;
 }
 
 .swiper-button-next:after,
 .swiper-rtl .swiper-button-prev:after {
   content: 'next';
-  color: white;
+  color: #9d9d9d;
 }
 </style>

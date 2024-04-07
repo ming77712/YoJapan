@@ -50,7 +50,7 @@ export default {
 
       <div class="d-flex align-items-center">
         <button
-          class="navbar-toggler me-3"
+          class="navbar-toggler rounded-2 me-3"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarButton"
@@ -130,4 +130,5 @@ export default {
 <style>
 .cartIconMobile {
   font-size: 30px;
-}</style>
+}
+</style>
