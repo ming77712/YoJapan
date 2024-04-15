@@ -32,7 +32,7 @@ export default {
 <template>
   <div
     v-if="isShow"
-    class="fixedItem zIndex position-fixed end-2 bottom-4 text-center shadow bg-white pt-1"
+    class="fixedItem zindex-2000 position-fixed end-2 bottom-4 text-center shadow bg-white pt-1"
     @click="scrollToTop"
   >
     <i class="bi bi-chevron-compact-up fs-4"></i>
@@ -47,7 +47,7 @@ export default {
   height: 45px;
 }
 
-.zIndex {
+.zindex-2000 {
   z-index: 2000;
 }
 </style>

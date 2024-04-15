@@ -69,7 +69,7 @@ export default {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .mtSpace {
   position: relative;
   z-index: 50;

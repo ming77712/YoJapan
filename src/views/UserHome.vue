@@ -125,7 +125,7 @@ export default {
     <section class="indexZoneImg mt-18 py-15">
       <div class="container">
         <div class="row">
-          <div class="zIndex col-md-4 p-8">
+          <div class="zindex-1 col-md-4 p-8">
             <div class="text-center border border-white py-2">
               <img
                 src="../../public/images/ticket.svg"
@@ -135,7 +135,7 @@ export default {
               <p class="text-white fs-4 mt-3">門票預訂</p>
             </div>
           </div>
-          <div class="zIndex col-md-4 p-8">
+          <div class="zindex-1 col-md-4 p-8">
             <div class="text-center border border-white py-2">
               <img
                 src="../../public/images/plan.svg"
@@ -145,7 +145,7 @@ export default {
               <p class="text-white fs-4 mt-3">行程安排</p>
             </div>
           </div>
-          <div class="zIndex col-md-4 p-8">
+          <div class="zindex-1 col-md-4 p-8">
             <div class="text-center border border-white py-2">
               <img
                 src="../../public/images/book-online-rounded.svg"
@@ -282,9 +282,5 @@ export default {
   @media (min-width: 768px) {
     height: 450px;
   }
-}
-
-.zIndex {
-  z-index: 1;
 }
 </style>

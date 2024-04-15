@@ -134,11 +134,3 @@ export default {
     </div>
   </main>
 </template>
-
-<style scoped>
-.borderRounded {
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-}
-</style>

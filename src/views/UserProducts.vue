@@ -49,7 +49,7 @@ export default {
             :class="{ 'link-active': !$route.query.category }"
             style="background-image: url('https://images.unsplash.com/photo-1612104425262-6a5b6082a4ea?q=80&w=500&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"
           >
-            <span class="zIndex position-relative
+            <span class="zindex-1 position-relative
               fs-md-5 fs-6 fw-bold text-white">全部</span></router-link>
         </li>
         <template
@@ -63,7 +63,7 @@ export default {
               :class="{ 'link-active': $route.query.category === item.name }"
               :style="`background-image: url(${item.bgImage});`"
             >
-              <span class="zIndex position-relative
+              <span class="zindex-1 position-relative
               fs-md-5 fs-6 fw-bold text-white">{{ item.name }}</span></router-link>
           </li>
         </template>
@@ -156,10 +156,6 @@ export default {
       background-color: rgba(0, 0, 0, .1);
     }
   }
-}
-
-.zIndex {
-  z-index: 1;
 }
 
 .productImgHeight {

@@ -115,7 +115,7 @@ export default {
   </swiper>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .bannerTitle {
   background-color: rgba(66, 66, 66, 0.7);
   padding: 8px;

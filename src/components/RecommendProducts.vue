@@ -10,8 +10,6 @@ export default {
   methods: {
     ...mapActions(cartStore, ['addToCart']),
   },
-  mounted() {
-  },
 };
 </script>
 
@@ -30,8 +28,9 @@ export default {
             <div class="card-top overflow-hidden">
               <img
                 :src="product.imageUrl"
-                class="productImgHeight w-100"
+                class="w-100"
                 :alt="product.title"
+                style="height: 200px;"
               />
               <div class="position-absolute d-inline top-0 end-0 badge
               rounded-0 bg-white text-black">
@@ -67,18 +66,3 @@ export default {
     </template>
   </ul>
 </template>
-
-<style lang="scss" scoped>
-.productImgHeight {
-  height: 200px;
-
-  @media (min-width: 768px) {
-    height: 200px;
-  }
-
-  @media (min-width: 992px) {
-    height: 200px;
-  }
-
-}
-</style>

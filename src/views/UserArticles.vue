@@ -62,7 +62,7 @@ export default {
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .articleImgHeight {
   height: 200px;
 
