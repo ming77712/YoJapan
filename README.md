@@ -21,30 +21,30 @@ https://yo-japan.vercel.app/#/
 - 熱門地區，透過路由控制切換不同地區的商品
 - 行程瀏覽，透過 Swiper 以卡片形式瀏覽商品
 - 最新文章，以左右交錯方式呈現旅遊文章
-  ![image](https://imgur.com/ADjVB2r)
-  ![image](https://imgur.com/5oM09Vu)
+  [Imgur](https://i.imgur.com/ADjVB2r.png)
+  [Imgur](https://i.imgur.com/5oM09Vu.png)
 
 ### 推薦行程
 
 - 可依分類篩選商品
-  ![image](https://imgur.com/2tbqrZe)
+  [Imgur](https://i.imgur.com/2tbqrZe.png)
 
 ### 商品介紹
 
 - 將商品加入購物車
 - 隨機推薦相同分類商品
-  ![image](https://imgur.com/Gp9rOuU)
-  ![image](https://imgur.com/kYyIooG)
+  [Imgur](https://i.imgur.com/Gp9rOuU.png)
+  [Imgur](https://i.imgur.com/kYyIooG.png)
 
 ### 最新文章
 
 - 可觀看旅遊相關文章
-  ![image](https://imgur.com/FE2YybQ)
+  [Imgur](https://i.imgur.com/FE2YybQ.png)
 
 ### 後台管理
 
 - 可管理商品、訂單、文章
-  ![image](https://imgur.com/Lgd2c0J)
+  [Imgur](https://i.imgur.com/Lgd2c0J.png)
 
 ## 安裝與使用
 
