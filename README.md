@@ -21,8 +21,7 @@ https://yo-japan.vercel.app/#/
 - 熱門地區，透過路由控制切換不同地區的商品
 - 行程瀏覽，透過 Swiper 以卡片形式瀏覽商品
 - 最新文章，以左右交錯方式呈現旅遊文章
-  ![首頁](https://imgur.com/ADjVB2r.png)
-  ![首頁Mobile](https://imgur.com/5oM09Vu.png)
+  ![首頁](https://imgur.com/ADjVB2r.png)![首頁Mobile](https://imgur.com/5oM09Vu.png)
 
 ### 推薦行程
 
@@ -33,8 +32,7 @@ https://yo-japan.vercel.app/#/
 
 - 將商品加入購物車
 - 隨機推薦相同分類商品
-  ![商品介紹](https://imgur.com/Gp9rOuU.png)
-  ![商品介紹Mobile](https://imgur.com/kYyIooG.png)
+  ![商品介紹](https://imgur.com/Gp9rOuU.png)![商品介紹Mobile](https://imgur.com/kYyIooG.png)
 
 ### 最新文章
 
