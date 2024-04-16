@@ -1,8 +1,50 @@
-# 六角學院 Vue 樣板
+# 遊日本 - 電商網站
 
-> 這是六角學院的 Vue 樣板，是基於 Vite 所建立的專案。
+https://yo-japan.vercel.app/#/
 
-Node.js 版本建議為：18.17.1 以上
+本專案僅為學習用途，不做任何商業使用
+
+## 專案介紹
+
+以販售旅遊行程、景點票券為主的電商平台，亦透過文章推廣及分享相關的旅遊資訊。
+
+## 開發工具
+
+- `Vite` 建構開發環境
+- `Vue 3` 框架開發
+- `Bootstrap 5` 搭配 `Sass` 進行網頁切版
+- 使用 `Pinia` 作狀態管理
+- `ESLint Airbnb` ESLint Airbnb 程式碼品質控制
+
+### 首頁
+
+- 熱門地區，透過路由控制切換不同地區的商品
+- 行程瀏覽，透過 Swiper 以卡片形式瀏覽商品
+- 最新文章，以左右交錯方式呈現旅遊文章
+  ![image](https://imgur.com/ADjVB2r)
+  ![image](https://imgur.com/5oM09Vu)
+
+### 推薦行程
+
+- 可依分類篩選商品
+  ![image](https://imgur.com/2tbqrZe)
+
+### 商品介紹
+
+- 將商品加入購物車
+- 隨機推薦相同分類商品
+  ![image](https://imgur.com/Gp9rOuU)
+  ![image](https://imgur.com/kYyIooG)
+
+### 最新文章
+
+- 可觀看旅遊相關文章
+  ![image](https://imgur.com/FE2YybQ)
+
+### 後台管理
+
+- 可管理商品、訂單、文章
+  ![image](https://imgur.com/Lgd2c0J)
 
 ## 安裝與使用
 
@@ -18,16 +60,4 @@ npm install
 
 ```bash
 npm run dev
-```
-
-### 打包專案
-
-```bash
-npm run build
-```
-
-### 部署專案
-
-```bash
-npm run deploy
 ```
