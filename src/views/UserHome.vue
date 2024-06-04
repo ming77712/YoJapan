@@ -35,7 +35,7 @@ export default {
         <div class="row mb-3">
           <div class="col-md-8 g-0">
             <img
-              src="https://images.unsplash.com/photo-1526193439956-0d961851d084?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/images/category/photo-1526193439956-0d961851d084.avif"
               class="w-100"
               style="height: 250px;"
               alt="Tokyo-pic"
@@ -69,7 +69,7 @@ export default {
           </div>
           <div class="col-md-8 g-0 order-1 order-md-2">
             <img
-              src="https://images.unsplash.com/photo-1560291544-515e5417bddb?q=80&w=2642&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/images/category/photo-1560291544-515e5417bddb.avif"
               class="w-100"
               style="height: 250px;"
               alt="Osaka-pic"
@@ -79,7 +79,7 @@ export default {
         <div class="row mb-3">
           <div class="col-md-8 g-0">
             <img
-              src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/images/category/photo-1545569341-9eb8b30979d9.avif"
               class="w-100"
               style="height: 250px;"
               alt="Kyoto-pic"
@@ -113,7 +113,7 @@ export default {
           </div>
           <div class="col-md-8 g-0 order-1 order-md-2">
             <img
-              src="https://images.unsplash.com/photo-1682594400910-b3477570b4a4?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="/images/category/photo-1682594400910-b3477570b4a4.avif"
               class="w-100"
               style="height: 250px;"
               alt="Hokkaido-pic"
@@ -255,7 +255,7 @@ export default {
 
 <style lang="scss" scoped>
 .indexZoneImg {
-  background-image: url('https://images.unsplash.com/photo-1593955808003-93f6151e6028?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-image: url('/images/hwpbj-9ejna.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;

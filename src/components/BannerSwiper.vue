@@ -35,7 +35,7 @@ export default {
     <swiper-slide class="position-relative d-flex flex-column
      justify-content-center align-items-center">
       <img
-        src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="/images/bannerswiper/photo-1493976040374-85c8e12f0c0e.avif"
         class="bannerHeight w-100"
         alt="banner-pic-01"
       />
@@ -55,7 +55,7 @@ export default {
     <swiper-slide class="position-relative d-flex flex-column
      justify-content-center align-items-center">
       <img
-        src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="/images/bannerswiper/photo-1524413840807-0c3cb6fa808d.avif"
         class="bannerHeight w-100"
         alt="banner-pic-02"
       />
@@ -75,7 +75,7 @@ export default {
     <swiper-slide class="position-relative d-flex flex-column
      justify-content-center align-items-center">
       <img
-        src="https://images.unsplash.com/photo-1672675964297-7910da4e13e7?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="/images/bannerswiper/photo-1672675964297-7910da4e13e7.avif"
         class="bannerHeight w-100"
         alt="banner-pic-03"
       />
@@ -95,7 +95,7 @@ export default {
     <swiper-slide class="position-relative d-flex flex-column
      justify-content-center align-items-center">
       <img
-        src="https://images.unsplash.com/photo-1703159506204-90a456211c20?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        src="/images/bannerswiper/photo-1703159506204-90a456211c20.avif"
         class="bannerHeight w-100"
         alt="banner-pic-04"
       />
