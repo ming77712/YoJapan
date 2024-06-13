@@ -1,36 +1,20 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { Navigation } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
-import { mapState, mapActions } from 'pinia';
-import productsStore from '@/stores/productsStore';
-import cartStore from '@/stores/cartStore';
-
+import useProductsStore from '@/stores/productsStore';
+import useCartStore from '@/stores/cartStore';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-export default {
-  data() {
-    return {
-      modules: [Navigation],
-    };
-  },
-  methods: {
-    ...mapActions(productsStore, ['getAllProduct']),
-    ...mapActions(cartStore, ['addToCart']),
-  },
-  mounted() {
-    this.getAllProduct();
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-  computed: {
-    ...mapState(productsStore, ['products']),
-  },
-};
+const productsStore = useProductsStore();
+const cartStore = useCartStore();
+
+const modules = ref([Navigation]);
+
+onMounted(() => {
+  productsStore.getIndexProduct();
+});
 </script>
 
 <template>
@@ -64,7 +48,7 @@ export default {
     justify-content-center
     align-items-center
     mt-5"
-      v-for="(product, index) in   products  "
+      v-for="(product, index) in productsStore.allProduct"
       :key="index"
     >
       <RouterLink
@@ -95,7 +79,7 @@ export default {
                 type="button"
                 class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
                 @click.prevent="
-                  addToCart(product.id)
+                  cartStore.addToCart(product.id)
                   "
               >
                 加入購物車

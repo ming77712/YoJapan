@@ -1,14 +1,7 @@
-<script>
-import { mapState } from 'pinia';
-import adminStore from '@/stores/adminStore';
+<script setup>
+import useAdminStore from '@/stores/adminStore';
 
-export default {
-  methods: {},
-  mounted() { },
-  computed: {
-    ...mapState(adminStore, ['status']),
-  },
-};
+const store = useAdminStore();
 </script>
 
 <template>
@@ -20,7 +13,7 @@ export default {
         <RouterLink
           to="/admin/products"
           class="text-black fs-8"
-          v-if="status"
+          v-if="store.status"
         ><i class="bi bi-person-fill-gear"></i></RouterLink>
         <RouterLink
           to="/login"

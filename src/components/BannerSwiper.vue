@@ -1,6 +1,6 @@
-<script>
+<script setup>
+import { ref } from 'vue';
 import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
@@ -8,17 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay';
 
-export default {
-  data() {
-    return {
-      modules: [Pagination, EffectFade, Autoplay],
-    };
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
-};
+const modules = ref([Pagination, EffectFade, Autoplay]);
 </script>
 
 <template>

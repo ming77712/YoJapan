@@ -1,45 +1,35 @@
-<script>
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      user: {
-        username: '',
-        password: '',
-      },
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    login() {
-      axios
-        .post(`${VITE_URL}/admin/signin`, this.user)
-        .then((res) => {
-          const { token, expired } = res.data;
-          document.cookie = `hexToken= ${token}; expires=${new Date(
-            expired,
-          )};`;
-          this.setSweetMessageSuccess(res.data.message);
-          Swal.fire(this.sweetMessage);
-          setTimeout(() => {
-            this.$router.push('/admin/products');
-          }, 1500);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
+const store = useSweetMessageStore();
+const router = useRouter();
+
+const user = ref({ username: '', password: '' });
+
+const login = () => {
+  axios
+    .post(`${VITE_URL}/admin/signin`, user.value)
+    .then((res) => {
+      const { token, expired } = res.data;
+      document.cookie = `hexToken= ${token}; expires=${new Date(
+        expired,
+      )};`;
+      store.setSweetMessageSuccess(res.data.message);
+      Swal.fire(store.sweetMessage);
+      setTimeout(() => {
+        router.push('/admin/products');
+      }, 1500);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
 };
 </script>
 

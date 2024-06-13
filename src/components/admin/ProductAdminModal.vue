@@ -1,104 +1,104 @@
-<script>
+<script setup>
+import { ref, watch, onMounted } from 'vue';
 import { Modal } from 'bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  props: ['currentProduct', 'isNew'],
-  data() {
-    return {
-      productModal: null,
-      tempProduct: {
-        imagesUrl: [],
-      },
-      formData: null,
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    addProduct() {
-      if (this.tempProduct.imagesUrl.length === 0) this.tempProduct.imagesUrl.push('');
-      axios
-        .post(`${VITE_URL}/api/${VITE_PATH}/admin/product`, {
-          data: this.tempProduct,
-        })
-        .then((res) => {
-          this.setSweetMessageSuccess(res.data.message);
-          Swal.fire(this.sweetMessage);
-          setTimeout(() => {
-            this.productModal.hide();
-            this.$emit('refreshProducts');
-          }, 1500);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    editProduct() {
-      if (this.tempProduct.imagesUrl.length === 0) this.tempProduct.imagesUrl.push('');
-      axios
-        .put(
-          `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`,
-          {
-            data: this.tempProduct,
-          },
-        )
-        .then((res) => {
-          this.setSweetMessageSuccess(res.data.message);
-          Swal.fire(this.sweetMessage);
-          setTimeout(() => {
-            this.productModal.hide();
-            this.$emit('refreshProducts');
-          }, 1500);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    uploadImg(e) {
-      this.formData = new FormData();
-      this.formData.append('file-to-upload', e.target.files[0]);
-      if (typeof this.formData !== 'object') return;
-      axios
-        .post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, this.formData)
-        .then((res) => {
-          this.tempProduct.imageUrl = res.data.imageUrl;
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-  },
-  watch: {
-    currentProduct() {
-      this.tempProduct = this.currentProduct;
-    },
-  },
-  mounted() {
-    this.productModal = new Modal(this.$refs.productModal, {
-      keyboard: false,
-      backdrop: 'static',
+const store = useSweetMessageStore();
+
+const props = defineProps(['currentProduct', 'isNew']);
+
+const modal = ref(null);
+const productModal = ref(null);
+
+const tempProduct = ref({ imagesUrl: [] });
+const formData = ref(null);
+
+const emits = defineEmits(['refreshProducts', 'productInstance']);
+
+const addProduct = () => {
+  if (tempProduct.value.imagesUrl.length === 0) tempProduct.value.imagesUrl.push('');
+  axios
+    .post(`${VITE_URL}/api/${VITE_PATH}/admin/product`, {
+      data: tempProduct.value,
+    })
+    .then((res) => {
+      store.setSweetMessageSuccess(res.data.message);
+      Swal.fire(store.sweetMessage);
+      setTimeout(() => {
+        productModal.value.hide();
+        emits('refreshProducts');
+      }, 1500);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.data.message);
+      Swal.fire(store.sweetMessage);
     });
-    this.$emit('productInstance', this.productModal);
-    this.tempProduct = this.currentProduct;
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
 };
+
+const editProduct = () => {
+  if (tempProduct.value.imagesUrl.length === 0) tempProduct.value.imagesUrl.push('');
+  axios
+    .put(
+      `${VITE_URL}/api/${VITE_PATH}/admin/product/${tempProduct.value.id}`,
+      {
+        data: tempProduct.value,
+      },
+    )
+    .then((res) => {
+      store.setSweetMessageSuccess(res.data.message);
+      Swal.fire(store.sweetMessage);
+      setTimeout(() => {
+        productModal.value.hide();
+        emits('refreshProducts');
+      }, 1500);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.data.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+const uploadImg = (e) => {
+  formData.value = new FormData();
+  formData.value.append('file-to-upload', e.target.files[0]);
+  if (typeof formData.value !== 'object') return;
+  axios
+    .post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData.value)
+    .then((res) => {
+      tempProduct.value.imageUrl = res.data.imageUrl;
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+watch(
+  () => props.currentProduct,
+  () => {
+    tempProduct.value = props.currentProduct;
+  },
+);
+
+onMounted(() => {
+  productModal.value = new Modal(modal.value, {
+    keyboard: false,
+    backdrop: 'static',
+  });
+  emits('productInstance', productModal.value);
+  tempProduct.value = props.currentProduct;
+});
+
 </script>
 
 <template>
   <div
     id="productModal"
-    ref="productModal"
+    ref="modal"
     class="modal fade"
     tabindex="-1"
     aria-labelledby="productModalLabel"
@@ -111,7 +111,7 @@ export default {
             id="productModalLabel"
             class="modal-title"
           >
-            <span v-if="isNew">新增產品</span>
+            <span v-if="props.isNew">新增產品</span>
             <span v-else>編輯產品</span>
           </h5>
           <button

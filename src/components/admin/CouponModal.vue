@@ -1,32 +1,41 @@
-<script>
-import modalMixin from '@/mixins/modalMixin';
+<script setup>
+import { ref, watch } from 'vue';
+import useModal from '@/composables/useModal';
 
-export default {
-  props: {
-    coupon: Object,
-    isNew: Boolean,
+const { modal, openModal, hideModal } = useModal();
+
+const props = defineProps({
+  coupon: Object,
+  isNew: Boolean,
+});
+
+const emits = defineEmits(['update-coupon']);
+
+const tempCoupon = ref({});
+const dueDate = ref('');
+
+watch(
+  () => props.coupon,
+  () => {
+    tempCoupon.value = props.coupon;
+    const dateAndTime = new Date(tempCoupon.value.due_date * 1000)
+      .toISOString()
+      .split('T');
+    [dueDate.value] = dateAndTime;
   },
-  data() {
-    return {
-      tempCoupon: {},
-      due_date: '',
-    };
+);
+
+watch(
+  () => dueDate,
+  () => {
+    tempCoupon.value.due_date = Math.floor(new Date(dueDate.value) / 1000);
   },
-  emits: ['update-coupon'],
-  mixins: [modalMixin],
-  watch: {
-    coupon() {
-      this.tempCoupon = this.coupon;
-      const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
-        .toISOString()
-        .split('T');
-      [this.due_date] = dateAndTime;
-    },
-    due_date() {
-      this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
-    },
-  },
-};
+);
+
+defineExpose({
+  openModal,
+  hideModal,
+});
 </script>
 
 <template>
@@ -86,7 +95,7 @@ export default {
               type="date"
               class="form-control"
               id="due_date"
-              v-model="due_date"
+              v-model="dueDate"
             />
           </div>
           <div class="mb-3">
@@ -130,7 +139,7 @@ export default {
           <button
             type="button"
             class="btn btn-primary"
-            @click="$emit('update-coupon', tempCoupon)"
+            @click="emits('update-coupon', tempCoupon)"
           >
             {{ isNew ? '新增優惠卷' : '更新優惠券' }}
           </button>

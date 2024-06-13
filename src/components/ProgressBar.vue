@@ -1,20 +1,20 @@
-<script>
-export default {
-  props: ['progress'],
-  data() {
-    return {
-      currentProgress: 0,
-    };
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+
+const props = defineProps(['progress']);
+
+const currentProgress = ref(0);
+
+onMounted(() => {
+  currentProgress.value = props.progress;
+});
+
+watch(
+  () => props.progress,
+  () => {
+    currentProgress.value = props.progress;
   },
-  mounted() {
-    this.currentProgress = this.progress;
-  },
-  watch: {
-    progress() {
-      this.currentProgress = this.progress;
-    },
-  },
-};
+);
 </script>
 
 <template>

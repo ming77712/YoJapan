@@ -1,33 +1,21 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { Collapse } from 'bootstrap';
 import FooterComponent from '@/components/FooterComponent.vue';
 import FixedItems from '@/components/FixedItems.vue';
-import { mapState, mapActions } from 'pinia';
-import cartStore from '@/stores/cartStore';
+import useCartStore from '@/stores/cartStore';
 
-export default {
-  data() {
-    return {
-      navCollapse: null,
-    };
-  },
-  methods: {
-    ...mapActions(cartStore, ['getCart']),
-  },
-  mounted() {
-    this.getCart();
-    this.navCollapse = new Collapse(this.$refs.navbarItem, {
-      toggle: false,
-    });
-  },
-  computed: {
-    ...mapState(cartStore, ['cartCount']),
-  },
-  components: {
-    FooterComponent,
-    FixedItems,
-  },
-};
+const store = useCartStore();
+
+const navCollapse = ref(null);
+
+onMounted(() => {
+  store.getCart();
+  navCollapse.value = new Collapse(navCollapse.value, {
+    toggle: false,
+  });
+});
+
 </script>
 
 <template>
@@ -67,8 +55,8 @@ export default {
             <span
               class="position-absolute top-0 start-100 translate-middle
           badge rounded-pill bg-primary fs-8"
-              :class="cartCount === 0 ? 'd-none' : 'd-block'"
-            >{{ cartCount
+              :class="store.cartCount === 0 ? 'd-none' : 'd-block'"
+            >{{ store.cartCount
             }}
             </span></i>
         </RouterLink>
@@ -76,7 +64,7 @@ export default {
       <div
         class="collapse navbar-collapse"
         id="navbarButton"
-        ref="navbarItem"
+        ref="navCollapse"
       >
         <ul class="navbar-nav text-center ms-auto">
           <li class="nav-item">
@@ -112,8 +100,8 @@ export default {
                 <span
                   class="position-absolute top-0 start-100 translate-middle
                   badge rounded-pill bg-primary"
-                  :class="cartCount === 0 ? 'd-none' : 'd-block'"
-                >{{ cartCount
+                  :class="store.cartCount === 0 ? 'd-none' : 'd-block'"
+                >{{ store.cartCount
                 }}
                 </span></i>
             </RouterLink>

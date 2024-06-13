@@ -1,18 +1,19 @@
-<script>
-import modalMixin from '@/mixins/modalMixin';
+<script setup>
+import useModal from '@/composables/useModal';
 
-export default {
-  props: {
-    item: Object,
-  },
-  data() {
-    return {
-      modal: null,
-    };
-  },
-  emits: ['del-item'],
-  mixins: [modalMixin],
-};
+const { modal, openModal, hideModal } = useModal();
+
+const props = defineProps({
+  item: Object,
+});
+
+const emits = defineEmits(['del-item']);
+
+defineExpose({
+  openModal,
+  hideModal,
+});
+
 </script>
 
 <template>
@@ -32,7 +33,7 @@ export default {
       <div class="modal-content border-0">
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">
-            <span>刪除 {{ item.title }}</span>
+            <span>刪除 {{ props.item.title }}</span>
           </h5>
           <button
             type="button"
@@ -43,7 +44,7 @@ export default {
         </div>
         <div class="modal-body">
           是否刪除
-          <strong class="text-danger">{{ item.title }}</strong>
+          <strong class="text-danger">{{ props.item.title }}</strong>
           (刪除後將無法恢復)。
         </div>
         <div class="modal-footer">
@@ -57,7 +58,7 @@ export default {
           <button
             type="button"
             class="btn btn-danger"
-            @click="$emit('del-item')"
+            @click="emits('del-item')"
           >
             確認刪除
           </button>

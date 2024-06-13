@@ -1,140 +1,150 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import sweetMessageStore from './sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default defineStore('cartStore', {
-  state: () => ({
-    carts: [],
-    cartCount: 0,
-    loadingStatus: '',
-  }),
-  actions: {
-    getCart() {
-      const { toastMessage } = sweetMessageStore();
-      axios
-        .get(`${VITE_URL}/api/${VITE_PATH}/cart`)
-        .then((res) => {
-          this.carts = res.data.data;
-          this.cartCount = this.carts.carts.length;
-        })
-        .catch((err) => {
-          toastMessage.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
-    },
-    addToCart(productId, qty = 1) {
-      const { toastMessage } = sweetMessageStore();
-      const data = {
-        product_id: productId,
-        qty,
-      };
+const store = useSweetMessageStore();
 
-      this.loadingStatus = productId;
+export default defineStore('cartStore', () => {
+  const carts = ref([]);
+  const cartCount = ref(0);
+  const loadingStatus = ref('');
 
-      axios
-        .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
-        .then((res) => {
-          toastMessage.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          this.loadingStatus = '';
-          this.getCart();
-        })
-        .catch((err) => {
-          toastMessage.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
+  const getCart = () => {
+    axios
+      .get(`${VITE_URL}/api/${VITE_PATH}/cart`)
+      .then((res) => {
+        carts.value = res.data.data;
+        cartCount.value = carts.value.carts.length;
+      })
+      .catch((err) => {
+        store.toastMessage.fire({
+          icon: 'error',
+          title: err.response.data.message,
         });
-    },
-    changeQty(cartId, productId, e) {
-      const { toastMessage } = sweetMessageStore();
-      const data = {
-        product_id: productId,
-        qty: Number(e.target.value),
-      };
-
-      axios
-        .put(`${VITE_URL}/api/${VITE_PATH}/cart/${cartId}`, { data })
-        .then((res) => {
-          toastMessage.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          this.getCart();
-        })
-        .catch((err) => {
-          toastMessage.fire({
-            icon: 'error',
-            title: err.response.data.message,
-          });
-        });
-    },
-    removeCartAllItem() {
-      const { toastMessage } = sweetMessageStore();
-      Swal.fire({
-        title: '確定要清空購物車?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#ff5b00',
-        cancelButtonColor: '#9d9d9d',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .delete(`${VITE_URL}/api/${VITE_PATH}/carts`)
-            .then((res) => {
-              toastMessage.fire({
-                icon: 'success',
-                title: res.data.message,
-              });
-              this.getCart();
-            })
-            .catch((err) => {
-              toastMessage.fire({
-                icon: 'error',
-                title: err.response.data.message,
-              });
-            });
-        }
       });
-    },
-    removeCartItem(productId) {
-      const { toastMessage } = sweetMessageStore();
-      Swal.fire({
-        title: '確定要刪除該商品?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#ff5b00',
-        cancelButtonColor: '#9d9d9d',
-        confirmButtonText: '確定',
-        cancelButtonText: '取消',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .delete(`${VITE_URL}/api/${VITE_PATH}/cart/${productId}`)
-            .then((res) => {
-              toastMessage.fire({
-                icon: 'success',
-                title: res.data.message,
-              });
-              this.getCart();
-            })
-            .catch((err) => {
-              toastMessage.fire({
-                icon: 'error',
-                title: err.response.data.message,
-              });
-            });
-        }
+  };
+
+  const addToCart = (productId, qty = 1) => {
+    const data = {
+      product_id: productId,
+      qty,
+    };
+
+    loadingStatus.value = productId;
+
+    axios
+      .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data })
+      .then((res) => {
+        store.toastMessage.fire({
+          icon: 'success',
+          title: res.data.message,
+        });
+        loadingStatus.value = '';
+        getCart();
+      })
+      .catch((err) => {
+        store.toastMessage.fire({
+          icon: 'error',
+          title: err.response.data.message,
+        });
       });
-    },
-  },
+  };
+
+  const changeQty = (cartId, productId, e) => {
+    const data = {
+      product_id: productId,
+      qty: Number(e.target.value),
+    };
+
+    axios
+      .put(`${VITE_URL}/api/${VITE_PATH}/cart/${cartId}`, { data })
+      .then((res) => {
+        store.toastMessage.fire({
+          icon: 'success',
+          title: res.data.message,
+        });
+        getCart();
+      })
+      .catch((err) => {
+        store.toastMessage.fire({
+          icon: 'error',
+          title: err.response.data.message,
+        });
+      });
+  };
+
+  const removeCartAllItem = () => {
+    Swal.fire({
+      title: '確定要清空購物車?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff5b00',
+      cancelButtonColor: '#9d9d9d',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${VITE_URL}/api/${VITE_PATH}/carts`)
+          .then((res) => {
+            store.toastMessage.fire({
+              icon: 'success',
+              title: res.data.message,
+            });
+            getCart();
+          })
+          .catch((err) => {
+            store.toastMessage.fire({
+              icon: 'error',
+              title: err.response.data.message,
+            });
+          });
+      }
+    });
+  };
+
+  const removeCartItem = (productId) => {
+    Swal.fire({
+      title: '確定要刪除該商品?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ff5b00',
+      cancelButtonColor: '#9d9d9d',
+      confirmButtonText: '確定',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`${VITE_URL}/api/${VITE_PATH}/cart/${productId}`)
+          .then((res) => {
+            store.toastMessage.fire({
+              icon: 'success',
+              title: res.data.message,
+            });
+            getCart();
+          })
+          .catch((err) => {
+            store.toastMessage.fire({
+              icon: 'error',
+              title: err.response.data.message,
+            });
+          });
+      }
+    });
+  };
+
+  return {
+    carts,
+    cartCount,
+    loadingStatus,
+    getCart,
+    addToCart,
+    changeQty,
+    removeCartAllItem,
+    removeCartItem,
+  };
 });

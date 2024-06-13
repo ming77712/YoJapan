@@ -1,57 +1,54 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { Modal } from 'bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  props: ['currentProduct'],
-  data() {
-    return {
-      delProductModal: null,
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    delProduct() {
-      axios
-        .delete(
-          `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.currentProduct.id}`,
-        )
-        .then((res) => {
-          this.setSweetMessageSuccess(res.data.message);
-          Swal.fire(this.sweetMessage);
-          setTimeout(() => {
-            this.delProductModal.hide();
-            this.$emit('refreshProducts');
-          }, 1500);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-  },
-  mounted() {
-    this.delProductModal = new Modal(this.$refs.delProductModal, {
-      keyboard: false,
-      backdrop: 'static',
+const store = useSweetMessageStore();
+
+const props = defineProps(['currentProduct']);
+
+const modal = ref(null);
+const delProductModal = ref(null);
+
+const emits = defineEmits(['refreshProducts', 'productDeleteInstance']);
+
+const delProduct = () => {
+  axios
+    .delete(
+      `${VITE_URL}/api/${VITE_PATH}/admin/product/${props.currentProduct.id}`,
+    )
+    .then((res) => {
+      store.setSweetMessageSuccess(res.data.message);
+      Swal.fire(store.sweetMessage);
+      setTimeout(() => {
+        delProductModal.value.hide();
+        emits('refreshProducts');
+      }, 1500);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.data.message);
+      Swal.fire(store.sweetMessage);
     });
-    this.$emit('productDeleteInstance', this.delProductModal);
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
 };
+
+onMounted(() => {
+  delProductModal.value = new Modal(modal.value, {
+    keyboard: false,
+    backdrop: 'static',
+  });
+  emits('productDeleteInstance', delProductModal.value);
+});
+
 </script>
 
 <template>
   <div
     id="delProductModal"
-    ref="delProductModal"
+    ref="modal"
     class="modal fade"
     tabindex="-1"
     aria-labelledby="delProductModalLabel"

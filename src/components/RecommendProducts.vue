@@ -1,22 +1,16 @@
-<script>
-import { mapActions } from 'pinia';
-import cartStore from '@/stores/cartStore';
+<script setup>
+import useCartStore from '@/stores/cartStore';
 
-export default {
-  props: ['pickProducts'],
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapActions(cartStore, ['addToCart']),
-  },
-};
+const store = useCartStore();
+
+const props = defineProps(['pickProducts']);
+
 </script>
 
 <template>
   <ul class="row g-3 g-md-4 g-lg-5">
     <template
-      v-for="(product, index) in pickProducts"
+      v-for="(product, index) in props.pickProducts"
       :key="index"
     >
       <li class="col-md-6 col-lg-3">
@@ -54,7 +48,7 @@ export default {
                 <button
                   type="button"
                   class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
-                  @click.prevent="addToCart(product.id)"
+                  @click.prevent="store.addToCart(product.id)"
                 >
                   加入購物車
                 </button>

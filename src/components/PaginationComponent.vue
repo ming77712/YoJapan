@@ -1,11 +1,10 @@
-<script>
-export default {
-  props: ['pages'],
-  methods: {
-    changePage(page) {
-      this.$emit('change-page', page);
-    },
-  },
+<script setup>
+const props = defineProps(['pages']);
+
+const emit = defineEmits(['change-page']);
+
+const changePage = (page) => {
+  emit('change-page', page);
 };
 </script>
 
@@ -17,22 +16,22 @@ export default {
     <ul class="pagination">
       <li
         class="page-item"
-        :class="{ 'disabled': pages.current_page === 1 }"
+        :class="{ 'disabled': props.pages.current_page === 1 }"
       >
         <a
           class="page-link"
           href="#"
           aria-label="Previous"
-          @click.prevent="changePage(pages.current_page - 1)"
+          @click.prevent="changePage(props.pages.current_page - 1)"
         >
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       <li
-        v-for="(item, index) in pages.total_pages"
+        v-for="(item, index) in props.pages.total_pages"
         :key="index"
         class="page-item"
-        :class="{ 'active': item === pages.current_page }"
+        :class="{ 'active': item === props.pages.current_page }"
       >
         <a
           class="page-link"
@@ -42,13 +41,13 @@ export default {
       </li>
       <li
         class="page-item"
-        :class="{ 'disabled': pages.current_page === pages.total_pages }"
+        :class="{ 'disabled': props.pages.current_page === props.pages.total_pages }"
       >
         <a
           class="page-link"
           href="#"
           aria-label="Next"
-          @click.prevent="changePage(pages.current_page + 1)"
+          @click.prevent="changePage(props.pages.current_page + 1)"
         >
           <span aria-hidden="true">&raquo;</span>
         </a>

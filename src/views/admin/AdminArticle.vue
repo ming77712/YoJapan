@@ -1,129 +1,119 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 import ArticleModal from '@/components/admin/ArticleModal.vue';
 import DelModal from '@/components/admin/DelModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      articles: [],
-      isLoading: false,
-      isNew: false,
-      tempArticle: {},
-      currentPage: 1,
-    };
-  },
-  components: {
-    ArticleModal,
-    DelModal,
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, [
-      'setSweetMessageSuccess',
-      'setSweetMessageError',
-    ]),
-    getArticles(page = 1) {
-      this.currentPage = page;
-      axios
-        .get(`${VITE_URL}/api/${VITE_PATH}/admin/articles?page=${page}`)
-        .then((res) => {
-          if (res.data.success) {
-            const { articles, pagination } = res.data;
-            this.articles = articles;
-            this.pagination = pagination;
-          }
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    getArticle(id) {
-      axios
-        .get(`${VITE_URL}/api/${VITE_PATH}/admin/article/${id}`)
-        .then((res) => {
-          this.openModal(false, res.data.article);
-          this.isNew = false;
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    openModal(isNew, item) {
-      if (isNew) {
-        this.tempArticle = {
-          isPublic: false,
-          create_at: new Date().getTime() / 1000,
-          tag: [],
-        };
-        this.isNew = true;
-      } else {
-        this.tempArticle = { ...item };
-        this.isNew = false;
+const store = useSweetMessageStore();
+
+const allArticle = ref([]);
+// const isLoading = ref(false);
+const isNew = ref(false);
+const tempArticle = ref({});
+const currentPagination = ref({});
+const currentPage = ref(1);
+const articleModal = ref(null);
+const delModal = ref(null);
+
+const getArticles = (page = 1) => {
+  currentPage.value = page;
+  axios
+    .get(`${VITE_URL}/api/${VITE_PATH}/admin/articles?page=${page}`)
+    .then((res) => {
+      if (res.data.success) {
+        const { articles, pagination } = res.data;
+        allArticle.value = articles;
+        currentPagination.value = pagination;
       }
-      this.$refs.articleModal.openModal();
-    },
-    updateArticle(item) {
-      this.tempArticle = item;
-      let api = `${VITE_URL}/api/${VITE_PATH}/admin/article`;
-      let httpMethod = 'post';
-      if (!this.isNew) {
-        api = `${VITE_URL}/api/${VITE_PATH}/admin/article/${this.tempArticle.id}`;
-        httpMethod = 'put';
-      }
-      const articleComponent = this.$refs.articleModal;
-      axios[httpMethod](api, { data: this.tempArticle })
-        .then((res) => {
-          this.toastMessage.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          articleComponent.hideModal();
-          this.getArticles(this.currentPage);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    openDelArticleModal(item) {
-      this.tempArticle = { ...item };
-      const delComponent = this.$refs.delModal;
-      delComponent.openModal();
-    },
-    delArticle() {
-      axios
-        .delete(
-          `${VITE_URL}/api/${VITE_PATH}/admin/article/${this.tempArticle.id}`,
-        )
-        .then((res) => {
-          this.toastMessage.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          const delComponent = this.$refs.delModal;
-          delComponent.hideModal();
-          this.getArticles(this.currentPage);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-  },
-  mounted() {
-    this.getArticles();
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage', 'toastMessage']),
-  },
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
 };
+
+const openModal = (state, item) => {
+  if (state) {
+    tempArticle.value = {
+      isPublic: false,
+      create_at: new Date().getTime() / 1000,
+      tag: [],
+    };
+    isNew.value = true;
+  } else {
+    tempArticle.value = { ...item };
+    isNew.value = false;
+  }
+  articleModal.value.openModal();
+};
+
+const getArticle = (id) => {
+  axios
+    .get(`${VITE_URL}/api/${VITE_PATH}/admin/article/${id}`)
+    .then((res) => {
+      openModal(false, res.data.article);
+      isNew.value = false;
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+const updateArticle = (item) => {
+  tempArticle.value = item;
+  let api = `${VITE_URL}/api/${VITE_PATH}/admin/article`;
+  let httpMethod = 'post';
+  if (!isNew.value) {
+    api = `${VITE_URL}/api/${VITE_PATH}/admin/article/${tempArticle.value.id}`;
+    httpMethod = 'put';
+  }
+  axios[httpMethod](api, { data: tempArticle.value })
+    .then((res) => {
+      store.toastMessage.fire({
+        icon: 'success',
+        title: res.data.message,
+      });
+      articleModal.value.hideModal();
+      getArticles(currentPage.value);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+const openDelArticleModal = (item) => {
+  tempArticle.value = { ...item };
+  delModal.value.openModal();
+};
+
+const delArticle = () => {
+  axios
+    .delete(
+      `${VITE_URL}/api/${VITE_PATH}/admin/article/${tempArticle.value.id}`,
+    )
+    .then((res) => {
+      store.toastMessage.fire({
+        icon: 'success',
+        title: res.data.message,
+      });
+      delModal.value.hideModal();
+      getArticles(currentPage.value);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+onMounted(() => {
+  getArticles();
+});
 </script>
 
 <template>
@@ -152,7 +142,7 @@ export default {
         </thead>
         <tbody>
           <tr
-            v-for="article in articles"
+            v-for="article in allArticle"
             :key="article.id"
           >
             <td>{{ article.title }}</td>

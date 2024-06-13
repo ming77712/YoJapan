@@ -1,22 +1,14 @@
-<script>
-import { mapState, mapActions } from 'pinia';
-import articlesStore from '@/stores/articlesStore';
+<script setup>
+import { onMounted } from 'vue';
+import useArticlesStore from '@/stores/articlesStore';
 import Pagination from '@/components/PaginationComponent.vue';
 
-export default {
-  methods: {
-    ...mapActions(articlesStore, ['getAllArticle']),
-  },
-  mounted() {
-    this.getAllArticle();
-  },
-  computed: {
-    ...mapState(articlesStore, ['articles', 'pagination']),
-  },
-  components: {
-    Pagination,
-  },
-};
+const store = useArticlesStore();
+
+onMounted(() => {
+  store.getAllArticle();
+});
+
 </script>
 
 <template>
@@ -25,7 +17,7 @@ export default {
     <div class="container">
       <ul class="row g-4 g-md-5 g-lg-6">
         <template
-          v-for="(article, index) in articles"
+          v-for="(article, index) in store.allArticle"
           :key="index"
         >
           <li class="col-md-6 col-lg-4">
@@ -56,8 +48,8 @@ export default {
       </ul>
     </div>
     <pagination
-      :pages="pagination"
-      @change-page="(page) => getAllArticle(page)"
+      :pages="store.renderPagination"
+      @change-page="(page) => store.getAllArticle(page)"
     ></pagination>
   </main>
 </template>

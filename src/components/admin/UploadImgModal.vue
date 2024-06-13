@@ -1,58 +1,56 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import { Modal } from 'bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      uploadImgModal: null,
-      formData: null,
-      imageUrl: '',
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    uploadImg() {
-      if (typeof this.formData !== 'object') return;
-      axios
-        .post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, this.formData)
-        .then((res) => {
-          this.imageUrl = res.data.imageUrl;
-          this.setSweetMessageSuccess('圖片新增成功');
-          Swal.fire(this.sweetMessage);
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    handleUploadImg(e) {
-      this.formData = new FormData();
-      this.formData.append('file-to-upload', e.target.files[0]);
-    },
-  },
-  mounted() {
-    this.uploadImgModal = new Modal(this.$refs.uploadImgModal, {
-      keyboard: false,
-      backdrop: 'static',
+const store = useSweetMessageStore();
+
+const modal = ref(null);
+const uploadImgModal = ref(null);
+
+const formData = ref(null);
+const imageUrl = ref('');
+
+const emits = defineEmits(['UploadImgInstance']);
+
+const uploadImg = () => {
+  if (typeof formData.value !== 'object') return;
+  axios
+    .post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData.value)
+    .then((res) => {
+      imageUrl.value = res.data.imageUrl;
+      store.setSweetMessageSuccess('圖片新增成功');
+      Swal.fire(store.sweetMessage);
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.message);
+      Swal.fire(store.sweetMessage);
     });
-    this.$emit('UploadImgInstance', this.uploadImgModal);
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
 };
+
+const handleUploadImg = (e) => {
+  formData.value = new FormData();
+  formData.value.append('file-to-upload', e.target.files[0]);
+};
+
+onMounted(() => {
+  uploadImgModal.value = new Modal(modal.value, {
+    keyboard: false,
+    backdrop: 'static',
+  });
+  emits('UploadImgInstance', uploadImgModal.value);
+});
+
 </script>
 
 <template>
   <div
     id="uploadImgModal"
-    ref="uploadImgModal"
+    ref="modal"
     class="modal fade"
     tabindex="-1"
     aria-labelledby="uploadImgModalLabel"

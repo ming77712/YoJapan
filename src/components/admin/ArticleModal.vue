@@ -1,44 +1,46 @@
-<script>
-import modalMixin from '@/mixins/modalMixin';
+<script setup>
+import { ref, watch } from 'vue';
+import useModal from '@/composables/useModal';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-export default {
-  props: {
-    article: Object,
-    isNew: Boolean,
-  },
-  data() {
-    return {
-      status: {},
-      modal: '',
-      tempArticle: {
-        tag: [''],
-      },
-      create_at: 0,
-      editor: ClassicEditor,
-      editorConfig: {
-        toolbar: ['heading', 'bold', 'italic', '|', 'link'],
-      },
+const { modal, openModal, hideModal } = useModal();
+
+const props = defineProps({
+  article: Object,
+  isNew: Boolean,
+});
+
+// const status = ref({});
+const tempArticle = ref({ tag: [''] });
+const createAt = ref(0);
+const editor = ref(ClassicEditor);
+const editorConfig = ref({ toolbar: ['heading', 'bold', 'italic', '|', 'link'] });
+
+watch(
+  () => props.article,
+  () => {
+    tempArticle.value = {
+      ...props.article,
+      tag: props.article.tag || [],
+      isPublic: props.article.isPublic || false,
     };
+    [createAt.value] = new Date(tempArticle.value.create_at * 1000)
+      .toISOString()
+      .split('T');
   },
-  mixins: [modalMixin],
-  watch: {
-    article() {
-      this.tempArticle = {
-        ...this.article,
-        tag: this.article.tag || [],
-        isPublic: this.article.isPublic || false,
-      };
-      [this.create_at] = new Date(this.tempArticle.create_at * 1000)
-        .toISOString()
-        .split('T');
-    },
-    create_at() {
-      this.tempArticle.create_at = Math.floor(new Date(this.create_at) / 1000);
-    },
+);
+
+watch(
+  () => createAt,
+  () => {
+    tempArticle.value.create_at = Math.floor(new Date(createAt.value) / 1000);
   },
-  methods: {},
-};
+);
+
+defineExpose({
+  openModal,
+  hideModal,
+});
 </script>
 
 <template>
@@ -119,7 +121,7 @@ export default {
                   type="date"
                   class="form-control"
                   id="create_at"
-                  v-model="create_at"
+                  v-model="createAt"
                 />
               </div>
             </div>

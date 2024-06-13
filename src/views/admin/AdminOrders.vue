@@ -1,8 +1,8 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 import OrderModal from '@/components/admin/OrderModal.vue';
 import DelModal from '@/components/admin/DelModal.vue';
@@ -10,78 +10,71 @@ import Pagination from '@/components/PaginationComponent.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      currentOrder: {},
-      orders: {},
-      pagination: {},
-      currentPage: 1,
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    getAllOrder(page = 1) {
-      this.currentPage = page;
-      axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${this.currentPage}`).then((res) => {
-        const { orders, pagination } = res.data;
-        this.orders = orders;
-        this.pagination = pagination;
-      }).catch((err) => {
-        this.setSweetMessageError(err.response.data.message);
-        Swal.fire(this.sweetMessage);
-      });
-    },
-    updatePaid(item) {
-      const paid = {
-        is_paid: item.is_paid,
-      };
-      axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/order/${item.id}`, { data: paid }).then((res) => {
-        this.getAllOrder(this.currentPage);
-        this.$refs.orderModal.hideModal();
-        this.toastMessage.fire({
-          icon: 'success',
-          title: res.data.message,
-        });
-      }).catch((err) => {
-        this.setSweetMessageError(err.response.data.message);
-        Swal.fire(this.sweetMessage);
-      });
-    },
-    delOrder() {
-      axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${this.currentOrder.id}`).then((res) => {
-        this.getAllOrder(this.currentPage);
-        this.$refs.orderDelModal.hideModal();
-        this.toastMessage.fire({
-          icon: 'success',
-          title: res.data.message,
-        });
-      }).catch((err) => {
-        this.setSweetMessageError(err.response.data.message);
-        Swal.fire(this.sweetMessage);
-      });
-    },
-    openModal(item) {
-      this.currentOrder = { ...item };
-      this.$refs.orderModal.openModal();
-    },
-    openDelModal(item) {
-      this.currentOrder = { ...item };
-      this.$refs.orderDelModal.openModal();
-    },
-  },
-  mounted() {
-    this.getAllOrder();
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage', 'toastMessage']),
-  },
-  components: {
-    OrderModal,
-    DelModal,
-    Pagination,
-  },
+const store = useSweetMessageStore();
+
+const currentOrder = ref({});
+const allOrder = ref({});
+const currentPagination = ref({});
+const currentPage = ref(1);
+const orderModal = ref(null);
+const orderDelModal = ref(null);
+
+const getAllOrder = (page = 1) => {
+  currentPage.value = page;
+  axios.get(`${VITE_URL}/api/${VITE_PATH}/admin/orders?page=${currentPage.value}`).then((res) => {
+    const { orders, pagination } = res.data;
+    allOrder.value = orders;
+    currentPagination.value = pagination;
+  }).catch((err) => {
+    store.setSweetMessageError(err.response.data.message);
+    Swal.fire(store.sweetMessage);
+  });
 };
+
+const updatePaid = (item) => {
+  const paid = {
+    is_paid: item.is_paid,
+  };
+  axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/order/${item.id}`, { data: paid }).then((res) => {
+    getAllOrder(currentPage.value);
+    orderModal.value.hideModal();
+    store.toastMessage.fire({
+      icon: 'success',
+      title: res.data.message,
+    });
+  }).catch((err) => {
+    store.setSweetMessageError(err.response.data.message);
+    Swal.fire(store.sweetMessage);
+  });
+};
+
+const delOrder = () => {
+  axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${currentOrder.value.id}`).then((res) => {
+    getAllOrder(currentPage.value);
+    orderDelModal.value.hideModal();
+    store.toastMessage.fire({
+      icon: 'success',
+      title: res.data.message,
+    });
+  }).catch((err) => {
+    store.setSweetMessageError(err.response.data.message);
+    Swal.fire(store.sweetMessage);
+  });
+};
+
+const openModal = (item) => {
+  currentOrder.value = { ...item };
+  orderModal.value.openModal();
+};
+
+const openDelModal = (item) => {
+  currentOrder.value = { ...item };
+  orderDelModal.value.openModal();
+};
+
+onMounted(() => {
+  getAllOrder();
+});
 </script>
 
 <template>
@@ -100,11 +93,11 @@ export default {
       </thead>
       <tbody>
         <template
-          v-for="item in orders"
+          v-for="item in allOrder"
           :key="item.id"
         >
           <tr
-            v-if="orders.length"
+            v-if="allOrder.length"
             :class="{ 'text-secondary': !item.is_paid }"
           >
             <td>{{ $filters.date(item.create_at) }}</td>
@@ -176,7 +169,7 @@ export default {
     @del-item="delOrder"
   />
   <Pagination
-    :pages="pagination"
+    :pages="currentPagination"
     @change-page="getAllOrder"
   />
 </template>

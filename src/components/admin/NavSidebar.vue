@@ -1,7 +1,4 @@
-<script>
-export default {
-};
-</script>
+<script></script>
 
 <template>
     <nav class="sideBar d-flex flex-column justify-content-between navbar-dark bg-dark h-100 p-8">

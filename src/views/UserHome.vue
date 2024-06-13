@@ -1,29 +1,15 @@
-<script>
-import { mapState, mapActions } from 'pinia';
+<script setup>
+import { onMounted } from 'vue';
+import useArticlesStore from '@/stores/articlesStore';
 import BannerSwiper from '@/components/BannerSwiper.vue';
 import ProductsSwiper from '@/components/ProductsSwiper.vue';
 
-import articlesStore from '@/stores/articlesStore';
+const store = useArticlesStore();
 
-export default {
-  data() {
-    return {
-    };
-  },
-  methods: {
-    ...mapActions(articlesStore, ['getIndexArticle']),
-  },
-  mounted() {
-    this.getIndexArticle();
-  },
-  computed: {
-    ...mapState(articlesStore, ['articles']),
-  },
-  components: {
-    BannerSwiper,
-    ProductsSwiper,
-  },
-};
+onMounted(() => {
+  store.getIndexArticle();
+});
+
 </script>
 
 <template>
@@ -169,7 +155,7 @@ export default {
         <h2 class="fs-3 mb-5">最新文章</h2>
         <ul class="mb-10 mb-md-20">
           <template
-            v-for="(item, index) in articles"
+            v-for="(item, index) in store.allArticle"
             :key="item.id"
           >
             <li
@@ -255,7 +241,7 @@ export default {
 
 <style lang="scss" scoped>
 .indexZoneImg {
-  background-image: url('/images/hwpbj-9ejna.jpg');
+  background-image: url('/images/acte2-w0oxq.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;

@@ -1,32 +1,30 @@
-<script>
-export default {
-  data() {
-    return {
-      isShow: false,
-    };
-  },
-  methods: {
-    scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    },
-    handleScroll() {
-      if (document.documentElement.scrollTop > 20) {
-        this.isShow = true;
-      } else {
-        this.isShow = false;
-      }
-    },
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  unmounted() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const isShow = ref(false);
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 };
+
+const handleScroll = () => {
+  if (document.documentElement.scrollTop > 20) {
+    isShow.value = true;
+  } else {
+    isShow.value = false;
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>

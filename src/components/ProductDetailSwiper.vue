@@ -1,6 +1,6 @@
-<script>
+<script setup>
+import { ref, computed, watch } from 'vue';
 import { Navigation, FreeMode, Thumbs } from 'swiper/modules';
-
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import 'swiper/css';
@@ -8,39 +8,30 @@ import 'swiper/css/navigation';
 import 'swiper/css/free-mode';
 import 'swiper/css/thumbs';
 
-export default {
-  props: ['images'],
-  data() {
-    return {
-      imagesLength: 0,
-      thumbsSwiper: { value: null },
-      modules: [Navigation, FreeMode, Thumbs],
-    };
-  },
-  methods: {
-    setThumbsSwiper(swiper) {
-      this.thumbsSwiper.value = swiper;
-    },
-  },
-  computed: {
-    // 計算哪個投影是被選到的
-    activeSlideIndex() {
-      if (this.thumbsSwiper.value) {
-        return this.thumbsSwiper.value.realIndex;
-      }
-      return 0;
-    },
-  },
-  watch: {
-    images() {
-      this.imagesLength = this.images.length;
-    },
-  },
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
+const props = defineProps(['images']);
+
+const imagesLength = ref(0);
+const thumbsSwiper = ref({ value: null });
+const modules = ref([Navigation, FreeMode, Thumbs]);
+
+const setThumbsSwiper = (swiper) => {
+  thumbsSwiper.value.value = swiper;
 };
+
+// 計算哪個投影是被選到的
+const activeSlideIndex = computed(() => {
+  if (thumbsSwiper.value.value) {
+    return thumbsSwiper.value.value.realIndex;
+  }
+  return 0;
+});
+
+watch(
+  () => props.images,
+  () => {
+    imagesLength.value = props.images.length;
+  },
+);
 </script>
 
 <template>
@@ -55,14 +46,14 @@ export default {
   >
     <swiper-slide
       class="swiper-slide-thumb-active"
-      v-for="(image, index) in images"
+      v-for="(image, index) in props.images"
       :key="index"
     >
       <img
         class="grab w-100"
         :src="image"
         alt="thumb-active-pic"
-        style="height: 400px; "
+        style="height: 400px;"
       />
     </swiper-slide>
     <div class="swiper-button-prev"><i class="bi bi-arrow-left-square-fill

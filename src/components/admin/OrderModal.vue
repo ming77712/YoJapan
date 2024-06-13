@@ -1,24 +1,29 @@
-<script>
-import modalMixin from '@/mixins/modalMixin';
+<script setup>
+import { ref, watch } from 'vue';
+import useModal from '@/composables/useModal';
 
-export default {
-  props: {
-    order: Object,
+const { modal, openModal, hideModal } = useModal();
+
+const props = defineProps({
+  order: Object,
+});
+
+const tempOrder = ref({});
+
+const emits = defineEmits(['update-paid']);
+
+watch(
+  () => props.order,
+  () => {
+    tempOrder.value = props.order;
   },
-  data() {
-    return {
-      modal: null,
-      tempOrder: {},
-    };
-  },
-  emits: ['update-paid'],
-  mixins: [modalMixin],
-  watch: {
-    order() {
-      this.tempOrder = this.order;
-    },
-  },
-};
+);
+
+defineExpose({
+  openModal,
+  hideModal,
+});
+
 </script>
 
 <template>
@@ -171,7 +176,7 @@ export default {
           <button
             type="button"
             class="btn btn-primary"
-            @click="$emit('update-paid', tempOrder)"
+            @click="emits('update-paid', tempOrder)"
           >
             修改付款狀態
           </button>

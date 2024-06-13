@@ -1,8 +1,8 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 import ProductAdminModal from '@/components/admin/ProductAdminModal.vue';
 import ProductDeleteModal from '@/components/admin/ProductDelModal.vue';
 import Pagination from '@/components/PaginationComponent.vue';
@@ -10,81 +10,70 @@ import UploadImgModal from '@/components/admin/UploadImgModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      productModal: null,
-      delProductModal: null,
-      uploadImgModal: null,
-      currentProduct: {
-        imagesUrl: [],
-      },
-      products: [],
-      pagination: {},
-      currentPage: 1,
-      isNew: false,
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    getAllProduct(page = 1) {
-      this.currentPage = page;
-      axios
-        .get(
-          `${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}`,
-        )
-        .then((res) => {
-          const { products, pagination } = res.data;
-          this.products = products;
-          this.pagination = pagination;
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    getProductModal(productModel) {
-      this.productModal = productModel;
-    },
-    getProductDeleteModal(productDeleteModel) {
-      this.delProductModal = productDeleteModel;
-    },
-    getUploadImgModal(uploadImgModel) {
-      this.uploadImgModal = uploadImgModel;
-    },
-    refreshProducts() {
-      this.getAllProduct(this.currentPage);
-    },
-    openModal(modalName, item) {
-      if (modalName === 'productModal') {
-        this.currentProduct = { imagesUrl: [] };
-        this.isNew = true;
-        this.productModal.show();
-      } else if (modalName === 'editModal') {
-        this.currentProduct = { ...item };
-        this.isNew = false;
-        this.productModal.show();
-      } else if (modalName === 'delProductModal') {
-        this.currentProduct = item;
-        this.delProductModal.show();
-      } else if (modalName === 'uploadImgModal') {
-        this.uploadImgModal.show();
-      }
-    },
-  },
-  mounted() {
-    this.getAllProduct();
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
-  components: {
-    ProductAdminModal,
-    ProductDeleteModal,
-    Pagination,
-    UploadImgModal,
-  },
+const store = useSweetMessageStore();
+
+const productModal = ref(null);
+const delProductModal = ref(null);
+const uploadImgModal = ref(null);
+const currentProduct = ref({ imagesUrl: [] });
+const allProduct = ref([]);
+const currentPagination = ref({});
+const currentPage = ref(1);
+const isNew = ref(false);
+
+const getAllProduct = (page = 1) => {
+  currentPage.value = page;
+  axios
+    .get(
+      `${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}`,
+    )
+    .then((res) => {
+      const { products, pagination } = res.data;
+      allProduct.value = products;
+      currentPagination.value = pagination;
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.data.message);
+      Swal.fire(store.sweetMessage);
+    });
 };
+
+const getProductModal = (productModel) => {
+  productModal.value = productModel;
+};
+
+const getProductDeleteModal = (productDeleteModel) => {
+  delProductModal.value = productDeleteModel;
+};
+
+const getUploadImgModal = (uploadImgModel) => {
+  uploadImgModal.value = uploadImgModel;
+};
+
+const refreshProducts = () => {
+  getAllProduct(currentPage.value);
+};
+
+const openModal = (modalName, item) => {
+  if (modalName === 'productModal') {
+    currentProduct.value = { imagesUrl: [] };
+    isNew.value = true;
+    productModal.value.show();
+  } else if (modalName === 'editModal') {
+    currentProduct.value = { ...item };
+    isNew.value = false;
+    productModal.value.show();
+  } else if (modalName === 'delProductModal') {
+    currentProduct.value = item;
+    delProductModal.value.show();
+  } else if (modalName === 'uploadImgModal') {
+    uploadImgModal.value.show();
+  }
+};
+
+onMounted(() => {
+  getAllProduct();
+});
 </script>
 
 <template>
@@ -117,7 +106,7 @@ export default {
       </thead>
       <tbody>
         <tr
-          v-for="item in products"
+          v-for="item in allProduct"
           :key="item.id"
         >
           <td>{{ item.category }}</td>
@@ -152,7 +141,7 @@ export default {
     </table>
   </div>
   <pagination
-    :pages="pagination"
+    :pages="currentPagination"
     @change-page="getAllProduct"
   ></pagination>
   <Product-Admin-Modal

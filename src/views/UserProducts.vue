@@ -1,38 +1,45 @@
-<script>
-import categoryMixins from '@/mixins/category';
-import { mapState, mapActions } from 'pinia';
-import productsStore from '@/stores/productsStore';
-import cartStore from '@/stores/cartStore';
+<script setup>
+import { ref, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import useProductsStore from '@/stores/productsStore';
+import useCartStore from '@/stores/cartStore';
 import Pagination from '@/components/PaginationComponent.vue';
 
-export default {
-  mixins: [categoryMixins],
-  data() {
-    return {};
+const productsStore = useProductsStore();
+const cartStore = useCartStore();
+
+const route = useRoute();
+
+const category = ref([
+  {
+    name: '東京',
+    bgImage: '/images/category/photo-1526193439956-0d961851d084.avif',
   },
-  methods: {
-    ...mapActions(productsStore, ['getAllProduct']),
-    ...mapActions(cartStore, ['addToCart']),
+  {
+    name: '大阪',
+    bgImage: '/images/category/photo-1560291544-515e5417bddb.avif',
   },
-  mounted() {
-    this.getAllProduct(this.$route.query.category);
+  {
+    name: '京都',
+    bgImage: '/images/category/photo-1545569341-9eb8b30979d9.avif',
   },
-  computed: {
-    ...mapState(productsStore, ['products', 'pagination']),
-    ...mapState(cartStore, ['carts', 'loadingStatus']),
+  {
+    name: '北海道',
+    bgImage: '/images/category/photo-1682594400910-b3477570b4a4.avif',
   },
-  components: {
-    Pagination,
+]);
+
+onMounted(() => {
+  productsStore.getAllProduct(route.query.category);
+});
+
+watch(
+  () => route.query,
+  (current) => {
+    productsStore.getAllProduct(current.category);
   },
-  watch: {
-    '$route.query': {
-      handler(current) {
-        this.getAllProduct(current.category);
-      },
-      deep: true,
-    },
-  },
-};
+  { deep: true },
+);
 </script>
 
 <template>
@@ -46,14 +53,13 @@ export default {
           <router-link
             to="/products"
             class="nav-link fs-md-5 fs-6"
-            :class="{ 'link-active': !$route.query.category }"
+            :class="{ 'link-active': !route.query.category }"
             style="
-              background-image:
-              url('/images/category/photo-1612104425262-6a5b6082a4ea.avif');
+              background-image: url('/images/category/photo-1612104425262-6a5b6082a4ea.avif');
             "
           >
             <span class="zindex-1 position-relative
-             fs-md-5 fs-6 fw-bold text-white">全部</span></router-link>
+            fs-md-5 fs-6 fw-bold text-white">全部</span></router-link>
         </li>
         <template
           v-for="item in category"
@@ -63,7 +69,7 @@ export default {
             <router-link
               :to="`/products?category=${item.name}`"
               class="nav-link"
-              :class="{ 'link-active': $route.query.category === item.name }"
+              :class="{ 'link-active': route.query.category === item.name }"
               :style="`background-image: url(${item.bgImage});`"
             >
               <span class="zindex-1 position-relative fs-md-5 fs-6 fw-bold text-white">{{ item.name
@@ -73,7 +79,7 @@ export default {
       </ul>
       <ul class="row g-4 g-md-5 g-lg-6">
         <template
-          v-for="(product, index) in products"
+          v-for="(product, index) in productsStore.allProduct"
           :key="index"
         >
           <li class="col-md-6 col-lg-4">
@@ -89,7 +95,7 @@ export default {
                     :alt="product.title"
                   />
                   <div class="position-absolute d-inline
-                   top-0 end-0 badge rounded-0 bg-white text-black">
+                  top-0 end-0 badge rounded-0 bg-white text-black">
                     <i class="bi bi-geo-alt-fill me-1"></i>{{ product.unit }}
                   </div>
                 </div>
@@ -110,7 +116,7 @@ export default {
                     <button
                       type="button"
                       class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
-                      @click.prevent="addToCart(product.id)"
+                      @click.prevent="cartStore.addToCart(product.id)"
                     >
                       加入購物車
                     </button>
@@ -123,8 +129,13 @@ export default {
       </ul>
     </div>
     <pagination
-      :pages="pagination"
-      @change-page="(page) => getAllProduct(pagination.category, page)"
+      :pages="productsStore.currentPagination"
+      @change-page="(page) =>
+        productsStore.getAllProduct(
+          productsStore.currentPagination.category,
+          page
+        )
+        "
     ></pagination>
   </main>
 </template>

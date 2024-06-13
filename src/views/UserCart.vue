@@ -1,67 +1,56 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import cartStore from '@/stores/cartStore';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useCartStore from '@/stores/cartStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 import ProgressBar from '@/components/ProgressBar.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      form: {
-        user: {
-          email: '',
-          name: '',
-          tel: '',
-          address: '',
-        },
-        message: '',
-      },
-    };
+const cartStore = useCartStore();
+const sweetMessageStore = useSweetMessageStore();
+
+const router = useRouter();
+
+const formTable = ref(null);
+
+const form = ref({
+  user: {
+    email: '',
+    name: '',
+    tel: '',
+    address: '',
   },
-  methods: {
-    ...mapActions(cartStore, [
-      'getCart',
-      'changeQty',
-      'removeCartAllItem',
-      'removeCartItem',
-    ]),
-    ...mapActions(sweetMessageStore, ['setSweetMessageSuccess', 'setSweetMessageError']),
-    createOrder() {
-      if (this.carts.carts.length === 0) {
-        this.setSweetMessageError('購物車是空的 無法送出訂單');
-        Swal.fire(this.sweetMessage);
-      } else {
-        const data = this.form;
-        axios
-          .post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
-          .then((res) => {
-            this.$refs.form.resetForm();
-            this.form.message = '';
-            this.getCart();
-            this.$router.push(`/order/${res.data.orderId}`);
-          })
-          .catch((err) => {
-            this.setSweetMessageError(err.response.data.message);
-            Swal.fire(this.sweetMessage);
-          });
-      }
-    },
-  },
-  mounted() {
-    this.getCart();
-  },
-  computed: {
-    ...mapState(cartStore, ['carts', 'cartCount']),
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
-  components: {
-    ProgressBar,
-  },
+  message: '',
+});
+
+const createOrder = () => {
+  if (cartStore.carts.carts.length === 0) {
+    sweetMessageStore.setSweetMessageError('購物車是空的 無法送出訂單');
+    Swal.fire(sweetMessageStore.sweetMessage);
+  } else {
+    const data = form.value;
+    axios
+      .post(`${VITE_URL}/api/${VITE_PATH}/order`, { data })
+      .then((res) => {
+        formTable.value.resetForm();
+        form.value.message = '';
+        cartStore.getCart();
+        router.push(`/order/${res.data.orderId}`);
+      })
+      .catch((err) => {
+        sweetMessageStore.setSweetMessageError(err.response.data.message);
+        Swal.fire(sweetMessageStore.sweetMessage);
+      });
+  }
 };
+
+onMounted(() => {
+  cartStore.getCart();
+});
+
 </script>
 
 <template>
@@ -74,7 +63,7 @@ export default {
           <hr>
           <div
             class="d-flex flex-column justify-content-center align-items-center"
-            v-if="cartCount === 0"
+            v-if="cartStore.cartCount === 0"
           >
             <h3 class="mb-8">購物車現在是空的~ 快去挑選喜愛的行程吧</h3>
             <RouterLink
@@ -87,7 +76,7 @@ export default {
           </div>
           <ul
             v-else
-            v-for="(product, index) in carts.carts"
+            v-for="(product, index) in cartStore.carts.carts"
             :key="index"
           >
             <li class="row mb-4">
@@ -105,7 +94,7 @@ export default {
                   <button
                     type="button"
                     class="btn btn-sm"
-                    @click="removeCartItem(product.id)"
+                    @click="cartStore.removeCartItem(product.id)"
                   >
                     <i class="bi bi-x fs-5"></i>
                   </button>
@@ -117,7 +106,7 @@ export default {
                       name="qty"
                       id="qty"
                       :value="product.qty"
-                      @change="(e) => changeQty(product.id, product.product_id, e)"
+                      @change="(e) => cartStore.changeQty(product.id, product.product_id, e)"
                     >
                       <option
                         :value="i"
@@ -142,12 +131,12 @@ export default {
             <button
               class="removeCartBtn btn btn-outline-gray1 border-2 rounded-3 fw-600 px-5 py-3"
               type="button"
-              :disabled="cartCount === 0"
-              @click="removeCartAllItem()"
+              :disabled="cartStore.cartCount === 0"
+              @click="cartStore.removeCartAllItem()"
             >
               清空購物車
             </button>
-            <span class="fs-4">總計：NT$ {{ parseInt(carts.final_total).toFixed(0)
+            <span class="fs-4">總計：NT$ {{ parseInt(cartStore.carts.final_total).toFixed(0)
               .replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</span>
           </div>
           <!--
@@ -161,9 +150,9 @@ export default {
         <div class="col-md-6 g-10">
           <h3 class="fs-4">訂購人資訊</h3>
           <hr>
-          <div class="">
+          <div>
             <v-form
-              ref="form"
+              ref="formTable"
               class=""
               @submit="createOrder"
               v-slot="{ errors }"
@@ -266,7 +255,7 @@ export default {
                 <button
                   type="submit"
                   class="btn btn-primary border-2 rounded-3 text-white fw-600 px-5 py-3"
-                  :disabled="cartCount === 0"
+                  :disabled="cartStore.cartCount === 0"
                 >送出訂單</button>
               </div>
             </v-form>

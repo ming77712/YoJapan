@@ -1,66 +1,57 @@
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { mapState, mapActions } from 'pinia';
-import sweetMessageStore from '@/stores/sweetMessageStore';
+import useSweetMessageStore from '@/stores/sweetMessageStore';
 import ProgressBar from '@/components/ProgressBar.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-export default {
-  data() {
-    return {
-      order: {},
-      isPaid: false,
-      progress: 50,
-    };
-  },
-  methods: {
-    ...mapActions(sweetMessageStore, [
-      'setSweetMessageSuccess',
-      'setSweetMessageError',
-    ]),
-    getOrder(orderId) {
-      axios
-        .get(`${VITE_URL}/api/${VITE_PATH}/order/${orderId}`)
-        .then((res) => {
-          this.order = res.data.order;
-          if (this.order.is_paid === true) {
-            this.isPaid = true;
-            this.progress = 100;
-          }
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-    payOrder(orderId) {
-      axios
-        .post(`${VITE_URL}/api/${VITE_PATH}/pay/${orderId}`)
-        .then((res) => {
-          if (res.data.success) {
-            this.isPaid = true;
-            this.progress = 100;
-          }
-        })
-        .catch((err) => {
-          this.setSweetMessageError(err.response.data.message);
-          Swal.fire(this.sweetMessage);
-        });
-    },
-  },
-  mounted() {
-    const { id } = this.$route.params;
-    this.getOrder(id);
-  },
-  computed: {
-    ...mapState(sweetMessageStore, ['sweetMessage']),
-  },
-  components: {
-    ProgressBar,
-  },
+const store = useSweetMessageStore();
+
+const route = useRoute();
+
+const order = ref({});
+const isPaid = ref(false);
+const progress = ref(50);
+
+const getOrder = (orderId) => {
+  axios
+    .get(`${VITE_URL}/api/${VITE_PATH}/order/${orderId}`)
+    .then((res) => {
+      order.value = res.data.order;
+      if (order.value.is_paid === true) {
+        isPaid.value = true;
+        progress.value = 100;
+      }
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
 };
+
+const payOrder = (orderId) => {
+  axios
+    .post(`${VITE_URL}/api/${VITE_PATH}/pay/${orderId}`)
+    .then((res) => {
+      if (res.data.success) {
+        isPaid.value = true;
+        progress.value = 100;
+      }
+    })
+    .catch((err) => {
+      store.setSweetMessageError(err.response.data.message);
+      Swal.fire(store.sweetMessage);
+    });
+};
+
+onMounted(() => {
+  const { id } = route.params;
+  getOrder(id);
+});
+
 </script>
 
 <template>
