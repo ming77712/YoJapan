@@ -5,7 +5,7 @@ import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { showError } = useSweetMessageStore();
 
 export default defineStore('productsStore', () => {
   const allProduct = ref([]);
@@ -13,39 +13,25 @@ export default defineStore('productsStore', () => {
   const randomProducts = ref([]);
   const currentPagination = ref({});
 
-  const getIndexProduct = () => {
-    axios
-      .get(
-        `${VITE_URL}/api/${VITE_PATH}/products/all`,
-      )
-      .then((res) => {
-        const { products } = res.data;
-        allProduct.value = products;
-      })
-      .catch((err) => {
-        store.toastMessage.fire({
-          icon: 'error',
-          title: err.response.data.message,
-        });
-      });
+  const getIndexProduct = async () => {
+    try {
+      const res = await axios.get(`${VITE_URL}/api/${VITE_PATH}/products/all`);
+      const { products } = res.data;
+      allProduct.value = products;
+    } catch (err) {
+      showError(err);
+    }
   };
 
-  const getAllProduct = (category = '', page = 1) => {
-    axios
-      .get(
-        `${VITE_URL}/api/${VITE_PATH}/products?category=${category}&page=${page}`,
-      )
-      .then((res) => {
-        const { products, pagination } = res.data;
-        allProduct.value = products;
-        currentPagination.value = pagination;
-      })
-      .catch((err) => {
-        store.toastMessage.fire({
-          icon: 'error',
-          title: err.response.data.message,
-        });
-      });
+  const getAllProduct = async (category = '', page = 1) => {
+    try {
+      const res = await axios.get(`${VITE_URL}/api/${VITE_PATH}/products?category=${category}&page=${page}`);
+      const { products, pagination } = res.data;
+      allProduct.value = products;
+      currentPagination.value = pagination;
+    } catch (err) {
+      showError(err);
+    }
   };
 
   const getRandom = (productNum) => {
@@ -67,41 +53,32 @@ export default defineStore('productsStore', () => {
     );
   };
 
-  const getRandomCategoryProducts = (category, id) => {
-    axios
-      .get(`${VITE_URL}/api/${VITE_PATH}/products?category=${category}`)
-      .then((res) => {
-        const { products } = res.data;
-        randomProducts.value = products;
-        randomProducts.value = randomProducts.value.filter(
-          (item) => item.id !== id,
-        );
-        getRandom(randomProducts.value.length);
-      })
-      .catch((err) => {
-        store.toastMessage.fire({
-          icon: 'error',
-          title: err.response.data.message,
-        });
-      });
+  const getRandomCategoryProducts = async (category, id) => {
+    try {
+      const res = await axios.get(`${VITE_URL}/api/${VITE_PATH}/products?category=${category}`);
+      const { products } = res.data;
+      randomProducts.value = products;
+      randomProducts.value = randomProducts.value.filter(
+        (item) => item.id !== id,
+      );
+      getRandom(randomProducts.value.length);
+    } catch (err) {
+      showError(err);
+    }
   };
 
-  const getProduct = (productId) => {
-    axios
-      .get(`${VITE_URL}/api/${VITE_PATH}/product/${productId}`)
-      .then((res) => {
-        currentProduct.value = res.data.product;
-        getRandomCategoryProducts(
-          currentProduct.value.category,
-          currentProduct.value.id,
-        );
-      })
-      .catch((err) => {
-        store.toastMessage.fire({
-          icon: 'error',
-          title: err.response.data.message,
-        });
-      });
+  const getProduct = async (productId) => {
+    try {
+      const res = await axios.get(`${VITE_URL}/api/${VITE_PATH}/product/${productId}`);
+      const { product } = res.data;
+      currentProduct.value = product;
+      getRandomCategoryProducts(
+        currentProduct.value.category,
+        currentProduct.value.id,
+      );
+    } catch (err) {
+      showError(err);
+    }
   };
 
   return {

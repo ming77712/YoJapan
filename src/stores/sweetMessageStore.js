@@ -28,10 +28,18 @@ export default defineStore('sweetMessageStore', () => {
     sweetMessage.value.timer = 2500;
   };
 
+  const showError = (err) => {
+    toastMessage.value.fire({
+      icon: 'error',
+      title: err.response?.data?.message || '發生錯誤',
+    });
+  };
+
   return {
     sweetMessage,
     toastMessage,
     setSweetMessageSuccess,
     setSweetMessageError,
+    showError,
   };
 });
