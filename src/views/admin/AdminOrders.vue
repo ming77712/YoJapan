@@ -10,7 +10,7 @@ import Pagination from '@/components/PaginationComponent.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageError, toastMessage } = useSweetMessageStore();
 
 const currentOrder = ref({});
 const allOrder = ref({});
@@ -26,8 +26,8 @@ const getAllOrder = (page = 1) => {
     allOrder.value = orders;
     currentPagination.value = pagination;
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 
@@ -38,13 +38,13 @@ const updatePaid = (item) => {
   axios.put(`${VITE_URL}/api/${VITE_PATH}/admin/order/${item.id}`, { data: paid }).then((res) => {
     getAllOrder(currentPage.value);
     orderModal.value.hideModal();
-    store.toastMessage.fire({
+    toastMessage.fire({
       icon: 'success',
       title: res.data.message,
     });
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 
@@ -52,13 +52,13 @@ const delOrder = () => {
   axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/order/${currentOrder.value.id}`).then((res) => {
     getAllOrder(currentPage.value);
     orderDelModal.value.hideModal();
-    store.toastMessage.fire({
+    toastMessage.fire({
       icon: 'success',
       title: res.data.message,
     });
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 

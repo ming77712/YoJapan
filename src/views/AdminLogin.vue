@@ -7,7 +7,7 @@ import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageSuccess, setSweetMessageError } = useSweetMessageStore();
 const router = useRouter();
 
 const user = ref({ username: '', password: '' });
@@ -20,15 +20,15 @@ const login = () => {
       document.cookie = `hexToken= ${token}; expires=${new Date(
         expired,
       )};`;
-      store.setSweetMessageSuccess(res.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageSuccess(res.data.message);
+      Swal.fire(sweetMessage);
       setTimeout(() => {
         router.push('/admin/products');
       }, 1500);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 </script>

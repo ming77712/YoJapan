@@ -8,7 +8,7 @@ import ProgressBar from '@/components/ProgressBar.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageError } = useSweetMessageStore();
 
 const route = useRoute();
 
@@ -27,8 +27,8 @@ const getOrder = (orderId) => {
       }
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -42,8 +42,8 @@ const payOrder = (orderId) => {
       }
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 

@@ -7,7 +7,7 @@ import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageSuccess, setSweetMessageError} = useSweetMessageStore();
 
 const props = defineProps(['currentProduct', 'isNew']);
 
@@ -26,16 +26,16 @@ const addProduct = () => {
       data: tempProduct.value,
     })
     .then((res) => {
-      store.setSweetMessageSuccess(res.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageSuccess(res.data.message);
+      Swal.fire(sweetMessage);
       setTimeout(() => {
         productModal.value.hide();
         emits('refreshProducts');
       }, 1500);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -49,16 +49,16 @@ const editProduct = () => {
       },
     )
     .then((res) => {
-      store.setSweetMessageSuccess(res.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageSuccess(res.data.message);
+      Swal.fire(sweetMessage);
       setTimeout(() => {
         productModal.value.hide();
         emits('refreshProducts');
       }, 1500);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -72,8 +72,8 @@ const uploadImg = (e) => {
       tempProduct.value.imageUrl = res.data.imageUrl;
     })
     .catch((err) => {
-      store.setSweetMessageError(err.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.message);
+      Swal.fire(sweetMessage);
     });
 };
 

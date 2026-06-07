@@ -9,7 +9,7 @@ import Pagination from '@/components/PaginationComponent.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageError, toastMessage } = useSweetMessageStore();
 
 const currentCoupon = ref({
   title: '',
@@ -48,8 +48,8 @@ const getAllCoupon = (page = 1) => {
     allCoupon.value = coupons;
     currentPagination.value = pagination;
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 
@@ -65,15 +65,15 @@ const updateCoupon = (coupon) => {
   }
 
   axios[httpMethos](url, { data }).then((res) => {
-    store.toastMessage.fire({
+    toastMessage.fire({
       icon: 'success',
       title: res.data.message,
     });
     getAllCoupon(currentPage.value);
     couponModal.value.hideModal();
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 
@@ -81,15 +81,15 @@ const delCoupon = () => {
   axios.delete(
     `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${currentCoupon.value.id}`,
   ).then((res) => {
-    store.toastMessage.fire({
+    toastMessage.fire({
       icon: 'success',
       title: res.data.message,
     });
     delModal.value.hideModal();
     getAllCoupon(currentPage.value);
   }).catch((err) => {
-    store.setSweetMessageError(err.response.data.message);
-    Swal.fire(store.sweetMessage);
+    setSweetMessageError(err.response.data.message);
+    Swal.fire(sweetMessage);
   });
 };
 

@@ -1,35 +1,34 @@
-import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import Swal from 'sweetalert2';
 
 export default defineStore('sweetMessageStore', () => {
-  const sweetMessage = ref({
+  const sweetMessage = ({
     icon: '',
     title: '',
     showConfirmButton: false,
     timer: 1500,
   });
-  const toastMessage = ref(Swal.mixin({
+  const toastMessage = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
     timer: 3000,
-  }));
+  });
 
   const setSweetMessageSuccess = (message) => {
-    sweetMessage.value.icon = 'success';
-    sweetMessage.value.title = message;
-    sweetMessage.value.timer = 1500;
+    sweetMessage.icon = 'success';
+    sweetMessage.title = message;
+    sweetMessage.timer = 1500;
   };
 
   const setSweetMessageError = (message) => {
-    sweetMessage.value.icon = 'error';
-    sweetMessage.value.title = message;
-    sweetMessage.value.timer = 2500;
+    sweetMessage.icon = 'error';
+    sweetMessage.title = message;
+    sweetMessage.timer = 2500;
   };
 
   const showError = (err) => {
-    toastMessage.value.fire({
+    toastMessage.fire({
       icon: 'error',
       title: err.response?.data?.message || '發生錯誤',
     });

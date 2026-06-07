@@ -10,7 +10,7 @@ import UploadImgModal from '@/components/admin/UploadImgModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageError } = useSweetMessageStore();
 
 const productModal = ref(null);
 const delProductModal = ref(null);
@@ -33,8 +33,8 @@ const getAllProduct = (page = 1) => {
       currentPagination.value = pagination;
     })
     .catch((err) => {
-      store.setSweetMessageError(err.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 

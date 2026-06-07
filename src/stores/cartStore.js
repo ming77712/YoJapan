@@ -34,7 +34,7 @@ export default defineStore('cartStore', () => {
 
     try {
       const res = await axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data });
-      toastMessage.value.fire({
+      toastMessage.fire({
         icon: 'success',
         title: res.data.message,
       });
@@ -53,7 +53,7 @@ export default defineStore('cartStore', () => {
 
     try {
       const res = await axios.put(`${VITE_URL}/api/${VITE_PATH}/cart/${cartId}`, { data });
-      toastMessage.value.fire({
+      toastMessage.fire({
         icon: 'success',
         title: res.data.message,
       });
@@ -76,7 +76,7 @@ export default defineStore('cartStore', () => {
       if (result.isConfirmed) {
         try {
           const res = await axios.delete(`${VITE_URL}/api/${VITE_PATH}/carts`);
-          toastMessage.value.fire({
+          toastMessage.fire({
             icon: 'success',
             title: res.data.message,
           });
@@ -101,7 +101,7 @@ export default defineStore('cartStore', () => {
       if (result.isConfirmed) {
         try {
           const res = await axios.delete(`${VITE_URL}/api/${VITE_PATH}/cart/${productId}`);
-          toastMessage.value.fire({
+          toastMessage.fire({
             icon: 'success',
             title: res.data.message,
           });

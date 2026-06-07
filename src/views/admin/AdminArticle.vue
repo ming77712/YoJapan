@@ -8,7 +8,7 @@ import DelModal from '@/components/admin/DelModal.vue';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageError, toastMessage } = useSweetMessageStore();
 
 const allArticle = ref([]);
 // const isLoading = ref(false);
@@ -31,8 +31,8 @@ const getArticles = (page = 1) => {
       }
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -59,8 +59,8 @@ const getArticle = (id) => {
       isNew.value = false;
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -74,7 +74,7 @@ const updateArticle = (item) => {
   }
   axios[httpMethod](api, { data: tempArticle.value })
     .then((res) => {
-      store.toastMessage.fire({
+      toastMessage.fire({
         icon: 'success',
         title: res.data.message,
       });
@@ -82,8 +82,8 @@ const updateArticle = (item) => {
       getArticles(currentPage.value);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 
@@ -98,7 +98,7 @@ const delArticle = () => {
       `${VITE_URL}/api/${VITE_PATH}/admin/article/${tempArticle.value.id}`,
     )
     .then((res) => {
-      store.toastMessage.fire({
+      toastMessage.fire({
         icon: 'success',
         title: res.data.message,
       });
@@ -106,8 +106,8 @@ const delArticle = () => {
       getArticles(currentPage.value);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.response.data.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.response.data.message);
+      Swal.fire(sweetMessage);
     });
 };
 

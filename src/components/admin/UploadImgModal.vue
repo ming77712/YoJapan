@@ -7,7 +7,7 @@ import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const store = useSweetMessageStore();
+const { sweetMessage, setSweetMessageSuccess, setSweetMessageError } = useSweetMessageStore();
 
 const modal = ref(null);
 const uploadImgModal = ref(null);
@@ -23,12 +23,12 @@ const uploadImg = () => {
     .post(`${VITE_URL}/api/${VITE_PATH}/admin/upload`, formData.value)
     .then((res) => {
       imageUrl.value = res.data.imageUrl;
-      store.setSweetMessageSuccess('圖片新增成功');
-      Swal.fire(store.sweetMessage);
+      setSweetMessageSuccess('圖片新增成功');
+      Swal.fire(sweetMessage);
     })
     .catch((err) => {
-      store.setSweetMessageError(err.message);
-      Swal.fire(store.sweetMessage);
+      setSweetMessageError(err.message);
+      Swal.fire(sweetMessage);
     });
 };
 

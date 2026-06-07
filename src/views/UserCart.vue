@@ -10,7 +10,7 @@ import ProgressBar from '@/components/ProgressBar.vue';
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
 const cartStore = useCartStore();
-const sweetMessageStore = useSweetMessageStore();
+const { setSweetMessageError, sweetMessage } = useSweetMessageStore();
 
 const router = useRouter();
 
@@ -28,8 +28,8 @@ const form = ref({
 
 const createOrder = () => {
   if (cartStore.carts.carts.length === 0) {
-    sweetMessageStore.setSweetMessageError('購物車是空的 無法送出訂單');
-    Swal.fire(sweetMessageStore.sweetMessage);
+    setSweetMessageError('購物車是空的 無法送出訂單');
+    Swal.fire(sweetMessage);
   } else {
     const data = form.value;
     axios
@@ -41,8 +41,8 @@ const createOrder = () => {
         router.push(`/order/${res.data.orderId}`);
       })
       .catch((err) => {
-        sweetMessageStore.setSweetMessageError(err.response.data.message);
-        Swal.fire(sweetMessageStore.sweetMessage);
+        setSweetMessageError(err.response.data.message);
+        Swal.fire(sweetMessage);
       });
   }
 };
