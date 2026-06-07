@@ -7,7 +7,7 @@ import useSweetMessageStore from '@/stores/sweetMessageStore';
 
 const { VITE_URL, VITE_PATH } = import.meta.env;
 
-const { sweetMessage, setSweetMessageSuccess, setSweetMessageError} = useSweetMessageStore();
+const { sweetMessage, setSweetMessageSuccess, setSweetMessageError } = useSweetMessageStore();
 
 const props = defineProps(['currentProduct', 'isNew']);
 
